@@ -1,0 +1,824 @@
+
+
+
+
+<!doctype html>
+<html lang="en" class="no-js">
+  <head>
+    
+      <meta charset="utf-8">
+      <meta name="viewport" content="width=device-width,initial-scale=1">
+      
+      
+      
+      <link rel="shortcut icon" href="../../assets/images/favicon.png">
+      <meta name="generator" content="mkdocs-1.3.0, mkdocs-material-5.5.14">
+    
+    
+      
+        <title>Introduction - Optimized Einsum</title>
+      
+    
+    
+      <link rel="stylesheet" href="../../assets/stylesheets/main.d3202873.min.css">
+      
+      
+    
+    
+    
+      
+        <link href="https://fonts.gstatic.com" rel="preconnect" crossorigin>
+        <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Roboto:300,400,400i,700%7CRoboto+Mono&display=fallback">
+        <style>body,input{font-family:"Roboto",-apple-system,BlinkMacSystemFont,Helvetica,Arial,sans-serif}code,kbd,pre{font-family:"Roboto Mono",SFMono-Regular,Consolas,Menlo,monospace}</style>
+      
+    
+    
+    
+      <link rel="stylesheet" href="../../css/custom.css">
+    
+    
+      
+    
+    
+  </head>
+  
+  
+    <body dir="ltr">
+  
+    
+    <input class="md-toggle" data-md-toggle="drawer" type="checkbox" id="__drawer" autocomplete="off">
+    <input class="md-toggle" data-md-toggle="search" type="checkbox" id="__search" autocomplete="off">
+    <label class="md-overlay" for="__drawer"></label>
+    <div data-md-component="skip">
+      
+        
+        <a href="#introduction" class="md-skip">
+          Skip to content
+        </a>
+      
+    </div>
+    <div data-md-component="announce">
+      
+    </div>
+    
+      <header class="md-header" data-md-component="header">
+  <nav class="md-header-nav md-grid" aria-label="Header">
+    <a href="../.." title="Optimized Einsum" class="md-header-nav__button md-logo" aria-label="Optimized Einsum">
+      
+  
+  <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M12 8a3 3 0 003-3 3 3 0 00-3-3 3 3 0 00-3 3 3 3 0 003 3m0 3.54C9.64 9.35 6.5 8 3 8v11c3.5 0 6.64 1.35 9 3.54 2.36-2.19 5.5-3.54 9-3.54V8c-3.5 0-6.64 1.35-9 3.54z"/></svg>
+
+    </a>
+    <label class="md-header-nav__button md-icon" for="__drawer">
+      <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M3 6h18v2H3V6m0 5h18v2H3v-2m0 5h18v2H3v-2z"/></svg>
+    </label>
+    <div class="md-header-nav__title" data-md-component="header-title">
+      
+        <div class="md-header-nav__ellipsis">
+          <span class="md-header-nav__topic md-ellipsis">
+            Optimized Einsum
+          </span>
+          <span class="md-header-nav__topic md-ellipsis">
+            
+              Introduction
+            
+          </span>
+        </div>
+      
+    </div>
+    
+      <label class="md-header-nav__button md-icon" for="__search">
+        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M9.5 3A6.5 6.5 0 0116 9.5c0 1.61-.59 3.09-1.56 4.23l.27.27h.79l5 5-1.5 1.5-5-5v-.79l-.27-.27A6.516 6.516 0 019.5 16 6.5 6.5 0 013 9.5 6.5 6.5 0 019.5 3m0 2C7 5 5 7 5 9.5S7 14 9.5 14 14 12 14 9.5 12 5 9.5 5z"/></svg>
+      </label>
+      
+<div class="md-search" data-md-component="search" role="dialog">
+  <label class="md-search__overlay" for="__search"></label>
+  <div class="md-search__inner" role="search">
+    <form class="md-search__form" name="search">
+      <input type="text" class="md-search__input" name="query" aria-label="Search" placeholder="Search" autocapitalize="off" autocorrect="off" autocomplete="off" spellcheck="false" data-md-component="search-query" data-md-state="active">
+      <label class="md-search__icon md-icon" for="__search">
+        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M9.5 3A6.5 6.5 0 0116 9.5c0 1.61-.59 3.09-1.56 4.23l.27.27h.79l5 5-1.5 1.5-5-5v-.79l-.27-.27A6.516 6.516 0 019.5 16 6.5 6.5 0 013 9.5 6.5 6.5 0 019.5 3m0 2C7 5 5 7 5 9.5S7 14 9.5 14 14 12 14 9.5 12 5 9.5 5z"/></svg>
+        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M20 11v2H8l5.5 5.5-1.42 1.42L4.16 12l7.92-7.92L13.5 5.5 8 11h12z"/></svg>
+      </label>
+      <button type="reset" class="md-search__icon md-icon" aria-label="Clear" data-md-component="search-reset" tabindex="-1">
+        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M19 6.41L17.59 5 12 10.59 6.41 5 5 6.41 10.59 12 5 17.59 6.41 19 12 13.41 17.59 19 19 17.59 13.41 12 19 6.41z"/></svg>
+      </button>
+    </form>
+    <div class="md-search__output">
+      <div class="md-search__scrollwrap" data-md-scrollfix>
+        <div class="md-search-result" data-md-component="search-result">
+          <div class="md-search-result__meta">
+            Initializing search
+          </div>
+          <ol class="md-search-result__list"></ol>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+    
+    
+      <div class="md-header-nav__source">
+        
+<a href="https://github.com/dgasmith/opt_einsum" title="Go to repository" class="md-source">
+  <div class="md-source__icon md-icon">
+    
+    <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 448 512"><path d="M439.55 236.05L244 40.45a28.87 28.87 0 00-40.81 0l-40.66 40.63 51.52 51.52c27.06-9.14 52.68 16.77 43.39 43.68l49.66 49.66c34.23-11.8 61.18 31 35.47 56.69-26.49 26.49-70.21-2.87-56-37.34L240.22 199v121.85c25.3 12.54 22.26 41.85 9.08 55a34.34 34.34 0 01-48.55 0c-17.57-17.6-11.07-46.91 11.25-56v-123c-20.8-8.51-24.6-30.74-18.64-45L142.57 101 8.45 235.14a28.86 28.86 0 000 40.81l195.61 195.6a28.86 28.86 0 0040.8 0l194.69-194.69a28.86 28.86 0 000-40.81z"/></svg>
+  </div>
+  <div class="md-source__repository">
+    dgasmith/opt_einsum
+  </div>
+</a>
+      </div>
+    
+  </nav>
+</header>
+    
+    <div class="md-container" data-md-component="container">
+      
+        
+      
+      
+        
+      
+      <main class="md-main" data-md-component="main">
+        <div class="md-main__inner md-grid">
+          
+            
+              <div class="md-sidebar md-sidebar--primary" data-md-component="navigation">
+                <div class="md-sidebar__scrollwrap">
+                  <div class="md-sidebar__inner">
+                    <nav class="md-nav md-nav--primary" aria-label="Navigation" data-md-level="0">
+  <label class="md-nav__title" for="__drawer">
+    <a href="../.." title="Optimized Einsum" class="md-nav__button md-logo" aria-label="Optimized Einsum">
+      
+  
+  <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M12 8a3 3 0 003-3 3 3 0 00-3-3 3 3 0 00-3 3 3 3 0 003 3m0 3.54C9.64 9.35 6.5 8 3 8v11c3.5 0 6.64 1.35 9 3.54 2.36-2.19 5.5-3.54 9-3.54V8c-3.5 0-6.64 1.35-9 3.54z"/></svg>
+
+    </a>
+    Optimized Einsum
+  </label>
+  
+    <div class="md-nav__source">
+      
+<a href="https://github.com/dgasmith/opt_einsum" title="Go to repository" class="md-source">
+  <div class="md-source__icon md-icon">
+    
+    <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 448 512"><path d="M439.55 236.05L244 40.45a28.87 28.87 0 00-40.81 0l-40.66 40.63 51.52 51.52c27.06-9.14 52.68 16.77 43.39 43.68l49.66 49.66c34.23-11.8 61.18 31 35.47 56.69-26.49 26.49-70.21-2.87-56-37.34L240.22 199v121.85c25.3 12.54 22.26 41.85 9.08 55a34.34 34.34 0 01-48.55 0c-17.57-17.6-11.07-46.91 11.25-56v-123c-20.8-8.51-24.6-30.74-18.64-45L142.57 101 8.45 235.14a28.86 28.86 0 000 40.81l195.61 195.6a28.86 28.86 0 0040.8 0l194.69-194.69a28.86 28.86 0 000-40.81z"/></svg>
+  </div>
+  <div class="md-source__repository">
+    dgasmith/opt_einsum
+  </div>
+</a>
+    </div>
+  
+  <ul class="md-nav__list" data-md-scrollfix>
+    
+      
+      
+      
+
+
+  <li class="md-nav__item">
+    <a href="../.." title="Overview" class="md-nav__link">
+      Overview
+    </a>
+  </li>
+
+    
+      
+      
+      
+
+
+  <li class="md-nav__item md-nav__item--nested">
+    
+      <input class="md-nav__toggle md-toggle" data-md-toggle="nav-2" type="checkbox" id="nav-2">
+    
+    <label class="md-nav__link" for="nav-2">
+      Getting Started
+      <span class="md-nav__icon md-icon"></span>
+    </label>
+    <nav class="md-nav" aria-label="Getting Started" data-md-level="1">
+      <label class="md-nav__title" for="nav-2">
+        <span class="md-nav__icon md-icon"></span>
+        Getting Started
+      </label>
+      <ul class="md-nav__list" data-md-scrollfix>
+        
+        
+          
+          
+          
+
+
+  <li class="md-nav__item">
+    <a href="../../getting_started/install/" title="Installing" class="md-nav__link">
+      Installing
+    </a>
+  </li>
+
+        
+          
+          
+          
+
+
+  <li class="md-nav__item">
+    <a href="../../getting_started/input_format/" title="Input Format" class="md-nav__link">
+      Input Format
+    </a>
+  </li>
+
+        
+          
+          
+          
+
+
+  <li class="md-nav__item">
+    <a href="../../getting_started/backends/" title="Backends & GPU Support" class="md-nav__link">
+      Backends & GPU Support
+    </a>
+  </li>
+
+        
+          
+          
+          
+
+
+  <li class="md-nav__item">
+    <a href="../../getting_started/reusing_paths/" title="Reusing Paths" class="md-nav__link">
+      Reusing Paths
+    </a>
+  </li>
+
+        
+          
+          
+          
+
+
+  <li class="md-nav__item">
+    <a href="../../getting_started/sharing_intermediates/" title="Sharing Intermediates" class="md-nav__link">
+      Sharing Intermediates
+    </a>
+  </li>
+
+        
+      </ul>
+    </nav>
+  </li>
+
+    
+      
+      
+      
+
+  
+
+
+  <li class="md-nav__item md-nav__item--active md-nav__item--nested">
+    
+      <input class="md-nav__toggle md-toggle" data-md-toggle="nav-3" type="checkbox" id="nav-3" checked>
+    
+    <label class="md-nav__link" for="nav-3">
+      Path Information
+      <span class="md-nav__icon md-icon"></span>
+    </label>
+    <nav class="md-nav" aria-label="Path Information" data-md-level="1">
+      <label class="md-nav__title" for="nav-3">
+        <span class="md-nav__icon md-icon"></span>
+        Path Information
+      </label>
+      <ul class="md-nav__list" data-md-scrollfix>
+        
+        
+          
+          
+          
+
+  
+
+
+  <li class="md-nav__item md-nav__item--active">
+    
+    <input class="md-nav__toggle md-toggle" data-md-toggle="toc" type="checkbox" id="__toc">
+    
+      
+    
+    
+      <label class="md-nav__link md-nav__link--active" for="__toc">
+        Introduction
+        <span class="md-nav__icon md-icon"></span>
+      </label>
+    
+    <a href="./" title="Introduction" class="md-nav__link md-nav__link--active">
+      Introduction
+    </a>
+    
+      
+<nav class="md-nav md-nav--secondary" aria-label="Table of contents">
+  
+  
+    
+  
+  
+    <label class="md-nav__title" for="__toc">
+      <span class="md-nav__icon md-icon"></span>
+      Table of contents
+    </label>
+    <ul class="md-nav__list" data-md-scrollfix>
+      
+        <li class="md-nav__item">
+  <a href="#examining-the-path" class="md-nav__link">
+    Examining the Path
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#format-of-the-path" class="md-nav__link">
+    Format of the Path
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#performance-comparison" class="md-nav__link">
+    Performance Comparison
+  </a>
+  
+</li>
+      
+    </ul>
+  
+</nav>
+    
+  </li>
+
+        
+          
+          
+          
+
+
+  <li class="md-nav__item">
+    <a href="../optimal_path/" title="Optimal Path" class="md-nav__link">
+      Optimal Path
+    </a>
+  </li>
+
+        
+          
+          
+          
+
+
+  <li class="md-nav__item">
+    <a href="../branching_path/" title="Branching Path" class="md-nav__link">
+      Branching Path
+    </a>
+  </li>
+
+        
+          
+          
+          
+
+
+  <li class="md-nav__item">
+    <a href="../greedy_path/" title="Greedy Path" class="md-nav__link">
+      Greedy Path
+    </a>
+  </li>
+
+        
+          
+          
+          
+
+
+  <li class="md-nav__item">
+    <a href="../random_greedy_path/" title="Random-Greedy Path" class="md-nav__link">
+      Random-Greedy Path
+    </a>
+  </li>
+
+        
+          
+          
+          
+
+
+  <li class="md-nav__item">
+    <a href="../dp_path/" title="Dynamic Programming Path" class="md-nav__link">
+      Dynamic Programming Path
+    </a>
+  </li>
+
+        
+          
+          
+          
+
+
+  <li class="md-nav__item">
+    <a href="../custom_paths/" title="Custom Path Optimizers" class="md-nav__link">
+      Custom Path Optimizers
+    </a>
+  </li>
+
+        
+      </ul>
+    </nav>
+  </li>
+
+    
+      
+      
+      
+
+
+  <li class="md-nav__item md-nav__item--nested">
+    
+      <input class="md-nav__toggle md-toggle" data-md-toggle="nav-4" type="checkbox" id="nav-4">
+    
+    <label class="md-nav__link" for="nav-4">
+      Examples
+      <span class="md-nav__icon md-icon"></span>
+    </label>
+    <nav class="md-nav" aria-label="Examples" data-md-level="1">
+      <label class="md-nav__title" for="nav-4">
+        <span class="md-nav__icon md-icon"></span>
+        Examples
+      </label>
+      <ul class="md-nav__list" data-md-scrollfix>
+        
+        
+          
+          
+          
+
+
+  <li class="md-nav__item">
+    <a href="../../examples/dask_reusing_intermediaries/" title="Reusing Intermediaries with Dask" class="md-nav__link">
+      Reusing Intermediaries with Dask
+    </a>
+  </li>
+
+        
+          
+          
+          
+
+
+  <li class="md-nav__item">
+    <a href="../../examples/large_expr_with_greedy/" title="Large Expressions with Greedy" class="md-nav__link">
+      Large Expressions with Greedy
+    </a>
+  </li>
+
+        
+      </ul>
+    </nav>
+  </li>
+
+    
+      
+      
+      
+
+
+  <li class="md-nav__item">
+    <a href="../../api_reference/" title="API Reference" class="md-nav__link">
+      API Reference
+    </a>
+  </li>
+
+    
+      
+      
+      
+
+
+  <li class="md-nav__item">
+    <a href="../../changelog/" title="Changelog" class="md-nav__link">
+      Changelog
+    </a>
+  </li>
+
+    
+  </ul>
+</nav>
+                  </div>
+                </div>
+              </div>
+            
+            
+              <div class="md-sidebar md-sidebar--secondary" data-md-component="toc">
+                <div class="md-sidebar__scrollwrap">
+                  <div class="md-sidebar__inner">
+                    
+<nav class="md-nav md-nav--secondary" aria-label="Table of contents">
+  
+  
+    
+  
+  
+    <label class="md-nav__title" for="__toc">
+      <span class="md-nav__icon md-icon"></span>
+      Table of contents
+    </label>
+    <ul class="md-nav__list" data-md-scrollfix>
+      
+        <li class="md-nav__item">
+  <a href="#examining-the-path" class="md-nav__link">
+    Examining the Path
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#format-of-the-path" class="md-nav__link">
+    Format of the Path
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#performance-comparison" class="md-nav__link">
+    Performance Comparison
+  </a>
+  
+</li>
+      
+    </ul>
+  
+</nav>
+                  </div>
+                </div>
+              </div>
+            
+          
+          <div class="md-content">
+            <article class="md-content__inner md-typeset">
+              
+                
+                  <a href="https://github.com/dgasmith/opt_einsum/edit/master/docs/paths/introduction.md" title="Edit this page" class="md-content__button md-icon">
+                    <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M20.71 7.04c.39-.39.39-1.04 0-1.41l-2.34-2.34c-.37-.39-1.02-.39-1.41 0l-1.84 1.83 3.75 3.75M3 17.25V21h3.75L17.81 9.93l-3.75-3.75L3 17.25z"/></svg>
+                  </a>
+                
+                
+                  
+                
+                
+                <h1 id="introduction">Introduction</h1>
+<p>Performing an optimized tensor contraction to speed up <code>einsum</code> involves two
+key stages:</p>
+<ol>
+<li>Finding a pairwise contraction order, or <strong>'path'</strong>.</li>
+<li>Performing the sequence of contractions given this path.</li>
+</ol>
+<p>The better the quality of path found in the first step, the quicker the actual
+contraction in the second step can be -- often dramatically. However, finding
+the <em>optimal</em> path is an NP-hard problem that can quickly become intractable,
+meaning that a  balance must be struck between the time spent finding a path,
+and its quality. <code>opt_einsum</code> handles this by using several path finding
+algorithms, which can be manually specified using the <code>optimize</code> keyword.
+These are:</p>
+<ul>
+<li>The <code>'optimal'</code> strategy - an exhaustive search of all possible paths</li>
+<li>The <code>'dynamic-programming'</code> strategy - a near-optimal search based off dynamic-programming</li>
+<li>The <code>'branch'</code> strategy - a more restricted search of many likely paths</li>
+<li>The <code>'greedy'</code> strategy - finds a path one step at a time using a cost
+  heuristic</li>
+</ul>
+<p>By default (<code>optimize='auto'</code>), <a href="../../api_reference/#opt_einsumcontract"><code>opt_einsum.contract</code></a> will select the
+best of these it can while aiming to keep path finding times below around 1ms.
+An analysis of each of these approaches' performance can be found at the bottom of this page.</p>
+<p>For large and complex contractions, there is the <code>'random-greedy'</code> approach,
+which samples many (by default 32) greedy paths and can be customized to
+explicitly spend a maximum amount of time searching. Another preset,
+<code>'random-greedy-128'</code>, uses 128 paths for a more exhaustive search.
+See <a href="../random_greedy_path/"><code>RandomGreedyPath</code></a> page for more details on configuring these.</p>
+<p>Finally, there is the <code>'auto-hq'</code> preset which targets a much larger search
+time (~1sec) in return for finding very high quality paths, dispatching to the
+<code>'optimal'</code>, <code>'dynamic-programming'</code> and then <code>'random-greedy-128'</code> paths
+depending on contraction size.</p>
+<p>If you want to find the path separately to performing the
+contraction, or just inspect information about the path found, you can use the
+function <a href="../../api_reference/#opt_einsumcontract_path"><code>opt_einsum.contract_path</code></a>.</p>
+<h2 id="examining-the-path">Examining the Path</h2>
+<p>As an example, consider the following expression found in a perturbation theory (one of ~5,000 such expressions):</p>
+<div class="highlight"><pre><span></span><code><span class="s1">&#39;bdik,acaj,ikab,ajac,ikbd&#39;</span>
+</code></pre></div>
+<p>At first, it would appear that this scales like N^7 as there are 7 unique indices; however, we can define a intermediate to reduce this scaling.</p>
+<div class="highlight"><pre><span></span><code><span class="c1"># (N^5 scaling)</span>
+<span class="n">a</span> <span class="o">=</span> <span class="s1">&#39;bdik,ikab,ikbd&#39;</span>
+
+<span class="c1"># (N^4 scaling)</span>
+<span class="n">result</span> <span class="o">=</span> <span class="s1">&#39;acaj,ajac,a&#39;</span>
+</code></pre></div>
+<p>This is a single possible path to the final answer (and notably, not the most optimal) out of many possible paths. Now, let opt_einsum compute the optimal path:</p>
+<div class="highlight"><pre><span></span><code><span class="kn">import</span> <span class="nn">opt_einsum</span> <span class="k">as</span> <span class="nn">oe</span>
+
+<span class="c1"># Take a complex string</span>
+<span class="n">einsum_string</span> <span class="o">=</span> <span class="s1">&#39;bdik,acaj,ikab,ajac,ikbd-&gt;&#39;</span>
+
+<span class="c1"># Build random views to represent this contraction</span>
+<span class="n">unique_inds</span> <span class="o">=</span> <span class="nb">set</span><span class="p">(</span><span class="n">einsum_string</span><span class="p">)</span> <span class="o">-</span> <span class="p">{</span><span class="s1">&#39;,&#39;</span><span class="p">,</span> <span class="s1">&#39;-&#39;</span><span class="p">,</span> <span class="s1">&#39;&gt;&#39;</span><span class="p">}</span>
+<span class="n">index_size</span> <span class="o">=</span> <span class="p">[</span><span class="mi">10</span><span class="p">,</span> <span class="mi">17</span><span class="p">,</span> <span class="mi">9</span><span class="p">,</span> <span class="mi">10</span><span class="p">,</span> <span class="mi">13</span><span class="p">,</span> <span class="mi">16</span><span class="p">,</span> <span class="mi">15</span><span class="p">,</span> <span class="mi">14</span><span class="p">,</span> <span class="mi">12</span><span class="p">]</span>
+<span class="n">sizes_dict</span> <span class="o">=</span> <span class="nb">dict</span><span class="p">(</span><span class="nb">zip</span><span class="p">(</span><span class="n">unique_inds</span><span class="p">,</span> <span class="n">index_size</span><span class="p">))</span>
+<span class="n">views</span> <span class="o">=</span> <span class="n">oe</span><span class="o">.</span><span class="n">helpers</span><span class="o">.</span><span class="n">build_views</span><span class="p">(</span><span class="n">einsum_string</span><span class="p">,</span> <span class="n">sizes_dict</span><span class="p">)</span>
+
+<span class="n">path</span><span class="p">,</span> <span class="n">path_info</span> <span class="o">=</span> <span class="n">oe</span><span class="o">.</span><span class="n">contract_path</span><span class="p">(</span><span class="n">einsum_string</span><span class="p">,</span> <span class="o">*</span><span class="n">views</span><span class="p">)</span>
+
+<span class="nb">print</span><span class="p">(</span><span class="n">path</span><span class="p">)</span>
+<span class="c1">#&gt; [(0, 4), (1, 3), (0, 1), (0, 1)]</span>
+
+<span class="nb">print</span><span class="p">(</span><span class="n">path_info</span><span class="p">)</span>
+<span class="c1">#&gt;   Complete contraction:  bdik,acaj,ikab,ajac,ikbd-&gt;</span>
+<span class="c1">#&gt;          Naive scaling:  7</span>
+<span class="c1">#&gt;      Optimized scaling:  4</span>
+<span class="c1">#&gt;       Naive FLOP count:  2.387e+8</span>
+<span class="c1">#&gt;   Optimized FLOP count:  8.068e+4</span>
+<span class="c1">#&gt;    Theoretical speedup:  2958.354</span>
+<span class="c1">#&gt;   Largest intermediate:  1.530e+3 elements</span>
+<span class="c1">#&gt; --------------------------------------------------------------------------------</span>
+<span class="c1">#&gt; scaling        BLAS                current                             remaining</span>
+<span class="c1">#&gt; --------------------------------------------------------------------------------</span>
+<span class="c1">#&gt;    4              0         ikbd,bdik-&gt;ikb                  acaj,ikab,ajac,ikb-&gt;</span>
+<span class="c1">#&gt;    4    GEMV/EINSUM            ikb,ikab-&gt;a                         acaj,ajac,a-&gt;</span>
+<span class="c1">#&gt;    3              0           ajac,acaj-&gt;a                                 a,a-&gt;</span>
+<span class="c1">#&gt;    1            DOT                  a,a-&gt;                                    -&gt;</span>
+</code></pre></div>
+<p>We can then check that actually performing the contraction produces the expected result:</p>
+<div class="highlight"><pre><span></span><code><span class="kn">import</span> <span class="nn">numpy</span> <span class="k">as</span> <span class="nn">np</span>
+
+<span class="n">einsum_result</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">einsum</span><span class="p">(</span><span class="s2">&quot;bdik,acaj,ikab,ajac,ikbd-&gt;&quot;</span><span class="p">,</span> <span class="o">*</span><span class="n">views</span><span class="p">)</span>
+<span class="n">contract_result</span> <span class="o">=</span> <span class="n">oe</span><span class="o">.</span><span class="n">contract</span><span class="p">(</span><span class="s2">&quot;bdik,acaj,ikab,ajac,ikbd-&gt;&quot;</span><span class="p">,</span> <span class="o">*</span><span class="n">views</span><span class="p">)</span>
+
+<span class="n">np</span><span class="o">.</span><span class="n">allclose</span><span class="p">(</span><span class="n">einsum_result</span><span class="p">,</span> <span class="n">contract_result</span><span class="p">)</span>
+<span class="c1">#&gt; True</span>
+</code></pre></div>
+<p>By contracting terms in the correct order we can see that this expression can be computed with N^4 scaling. Even with the overhead of finding the best order or 'path' and small dimensions,
+<code>opt_einsum</code> is roughly 3000 times faster than pure einsum for this expression.</p>
+<h2 id="format-of-the-path">Format of the Path</h2>
+<p>Let us look at the structure of a canonical <code>einsum</code> path found in NumPy and its optimized variant:</p>
+<div class="highlight"><pre><span></span><code><span class="n">einsum_path</span> <span class="o">=</span> <span class="p">[(</span><span class="mi">0</span><span class="p">,</span> <span class="mi">1</span><span class="p">,</span> <span class="mi">2</span><span class="p">,</span> <span class="mi">3</span><span class="p">,</span> <span class="mi">4</span><span class="p">)]</span>
+<span class="n">opt_path</span> <span class="o">=</span> <span class="p">[(</span><span class="mi">1</span><span class="p">,</span> <span class="mi">3</span><span class="p">),</span> <span class="p">(</span><span class="mi">0</span><span class="p">,</span> <span class="mi">2</span><span class="p">),</span> <span class="p">(</span><span class="mi">0</span><span class="p">,</span> <span class="mi">2</span><span class="p">),</span> <span class="p">(</span><span class="mi">0</span><span class="p">,</span> <span class="mi">1</span><span class="p">)]</span>
+</code></pre></div>
+<p>In opt_einsum each element of the list represents a single contraction.
+In the above example the einsum_path would effectively compute the result as a single contraction identical to that of <code>einsum</code>, while the
+opt_path would perform four contractions in order to reduce the overall scaling.
+The first tuple in the opt_path, <code>(1,3)</code>, pops the second and fourth terms, then contracts them together to produce a new term which is then appended to the list of terms, this is continued until all terms are contracted.
+An example should illuminate this:</p>
+<div class="highlight"><pre><span></span><code><span class="go">---------------------------------------------------------------------------------</span>
+<span class="go">scaling   GEMM                   current                                remaining</span>
+<span class="go">---------------------------------------------------------------------------------</span>
+<span class="go">terms = [&#39;bdik&#39;, &#39;acaj&#39;, &#39;ikab&#39;, &#39;ajac&#39;, &#39;ikbd&#39;] contraction = (1, 3)</span>
+<span class="go">  3     False              ajac,acaj-&gt;a                       bdik,ikab,ikbd,a-&gt;</span>
+<span class="go">terms = [&#39;bdik&#39;, &#39;ikab&#39;, &#39;ikbd&#39;, &#39;a&#39;] contraction = (0, 2)</span>
+<span class="go">  4     False            ikbd,bdik-&gt;bik                             ikab,a,bik-&gt;</span>
+<span class="go">terms = [&#39;ikab&#39;, &#39;a&#39;, &#39;bik&#39;] contraction = (0, 2)</span>
+<span class="go">  4     False              bik,ikab-&gt;a                                    a,a-&gt;</span>
+<span class="go">terms = [&#39;a&#39;, &#39;a&#39;] contraction = (0, 1)</span>
+<span class="go">  1       DOT                    a,a-&gt;                                       -&gt;</span>
+</code></pre></div>
+<p>A path specified in this format can explicitly be supplied directly to
+<a href="../../api_reference/#opt_einsumcontract"><code>opt_einsum.contract</code></a> using the <code>optimize</code> keyword:</p>
+<div class="highlight"><pre><span></span><code><span class="n">contract_result</span> <span class="o">=</span> <span class="n">oe</span><span class="o">.</span><span class="n">contract</span><span class="p">(</span><span class="s2">&quot;bdik,acaj,ikab,ajac,ikbd-&gt;&quot;</span><span class="p">,</span> <span class="o">*</span><span class="n">views</span><span class="p">,</span> <span class="n">optimize</span><span class="o">=</span><span class="n">opt_path</span><span class="p">)</span>
+
+<span class="n">np</span><span class="o">.</span><span class="n">allclose</span><span class="p">(</span><span class="n">einsum_result</span><span class="p">,</span> <span class="n">contract_result</span><span class="p">)</span>
+<span class="c1">#&gt; True</span>
+</code></pre></div>
+<h2 id="performance-comparison">Performance Comparison</h2>
+<p>The following graphs should give some indication of the tradeoffs between path
+finding time and path quality. They are generated by finding paths with each
+possible algorithm for many randomly generated networks of <code>n</code> tensors with
+varying connectivity.</p>
+<p>First we have the time to find each path as a function of the number of terms
+in the expression:</p>
+<p><img alt="Path Finding" src="../../img/path_finding_time.png" /></p>
+<p>Clearly the exhaustive (<code>'optimal'</code>, <code>'branch-all'</code>) and exponential
+(<code>'branch-2'</code>) searches eventually scale badly, but for modest amounts of
+terms they incur only a small overhead. The <code>'random-greedy'</code> approach is not
+shown here as it is simply <code>max_repeats</code> times slower than the <code>'greedy'</code>
+approach - at least if not parallelized.</p>
+<p>Next we can look at the average FLOP speedup (as compared to the easiest path
+to find, <code>'greedy'</code>):</p>
+<p><img alt="Path Finding" src="../../img/path_found_flops.png" /></p>
+<p>One can see that the hierarchy of path qualities is:</p>
+<ol>
+<li><code>'optimal'</code> (used by auto for <code>n &lt;= 4</code>)</li>
+<li><code>'branch-all'</code> (used by auto for <code>n &lt;= 6</code>)</li>
+<li><code>'branch-2'</code> (used by auto for <code>n &lt;= 8</code>)</li>
+<li><code>'branch-1'</code> (used by auto for <code>n &lt;= 14</code>)</li>
+<li><code>'greedy'</code> (used by auto for anything larger)</li>
+</ol>
+<div class="admonition note">
+<p class="admonition-title">Note</p>
+<p>The performance of the <code>'random=greedy'</code> approach (which is never used
+automatically) can be found separately in <a href="../random_greedy_path/"><code>RandomGreedyPath</code></a> section.</p>
+</div>
+<p>There are a few important caveats to note with this graph. Firstly, the
+benefits of more advanced path finding are very dependent on the complexity of
+the expression. For 'simple' contractions, all the different approaches will
+<em>mostly</em> find the same path (as here). However, for 'tricky' contractions, there
+will be certain cases where the more advanced algorithms will find much better
+paths. As such, while this graph gives a good idea of the <em>relative</em> performance
+of each algorithm, the 'average speedup' is not a perfect indicator since
+worst-case performance might be more critical.</p>
+<p>Note that the speedups for any of the methods as compared to a standard
+<code>einsum</code> or a naively chosen path (such as <code>path=[(0, 1), (0, 1), ...]</code>)
+are all exponentially large and not shown.</p>
+                
+              
+              
+                
+
+
+              
+            </article>
+          </div>
+        </div>
+      </main>
+      
+        
+<footer class="md-footer">
+  
+    <div class="md-footer-nav">
+      <nav class="md-footer-nav__inner md-grid" aria-label="Footer">
+        
+          <a href="../../getting_started/sharing_intermediates/" title="Sharing Intermediates" class="md-footer-nav__link md-footer-nav__link--prev" rel="prev">
+            <div class="md-footer-nav__button md-icon">
+              <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M20 11v2H8l5.5 5.5-1.42 1.42L4.16 12l7.92-7.92L13.5 5.5 8 11h12z"/></svg>
+            </div>
+            <div class="md-footer-nav__title">
+              <div class="md-ellipsis">
+                <span class="md-footer-nav__direction">
+                  Previous
+                </span>
+                Sharing Intermediates
+              </div>
+            </div>
+          </a>
+        
+        
+          <a href="../optimal_path/" title="Optimal Path" class="md-footer-nav__link md-footer-nav__link--next" rel="next">
+            <div class="md-footer-nav__title">
+              <div class="md-ellipsis">
+                <span class="md-footer-nav__direction">
+                  Next
+                </span>
+                Optimal Path
+              </div>
+            </div>
+            <div class="md-footer-nav__button md-icon">
+              <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M4 11v2h12l-5.5 5.5 1.42 1.42L19.84 12l-7.92-7.92L10.5 5.5 16 11H4z"/></svg>
+            </div>
+          </a>
+        
+      </nav>
+    </div>
+  
+  <div class="md-footer-meta md-typeset">
+    <div class="md-footer-meta__inner md-grid">
+      <div class="md-footer-copyright">
+        
+        Made with
+        <a href="https://squidfunk.github.io/mkdocs-material/" target="_blank" rel="noopener">
+          Material for MkDocs
+        </a>
+      </div>
+      
+    </div>
+  </div>
+</footer>
+      
+    </div>
+    
+      <script src="../../assets/javascripts/vendor.2d1db4bd.min.js"></script>
+      <script src="../../assets/javascripts/bundle.6627ddf3.min.js"></script><script id="__lang" type="application/json">{"clipboard.copied": "Copied to clipboard", "clipboard.copy": "Copy to clipboard", "search.config.lang": "en", "search.config.pipeline": "trimmer, stopWordFilter", "search.config.separator": "[\\s\\-]+", "search.result.none": "No matching documents", "search.result.one": "1 matching document", "search.result.other": "# matching documents", "search.result.placeholder": "Type to start searching"}</script>
+      
+      <script>
+        app = initialize({
+          base: "../..",
+          features: [],
+          search: Object.assign({
+            worker: "../../assets/javascripts/worker/search.5eca75d3.min.js"
+          }, typeof search !== "undefined" && search)
+        })
+      </script>
+      
+        <script src="../../javascripts/config.js"></script>
+      
+        <script src="https://polyfill.io/v3/polyfill.min.js?features=es6"></script>
+      
+        <script src="https://cdn.jsdelivr.net/npm/mathjax@3/es5/tex-mml-chtml.js"></script>
+      
+    
+  </body>
+</html>

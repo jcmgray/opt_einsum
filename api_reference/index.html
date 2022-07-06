@@ -1,0 +1,1377 @@
+
+
+
+
+<!doctype html>
+<html lang="en" class="no-js">
+  <head>
+    
+      <meta charset="utf-8">
+      <meta name="viewport" content="width=device-width,initial-scale=1">
+      
+      
+      
+      <link rel="shortcut icon" href="../assets/images/favicon.png">
+      <meta name="generator" content="mkdocs-1.3.0, mkdocs-material-5.5.14">
+    
+    
+      
+        <title>API Reference - Optimized Einsum</title>
+      
+    
+    
+      <link rel="stylesheet" href="../assets/stylesheets/main.d3202873.min.css">
+      
+      
+    
+    
+    
+      
+        <link href="https://fonts.gstatic.com" rel="preconnect" crossorigin>
+        <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Roboto:300,400,400i,700%7CRoboto+Mono&display=fallback">
+        <style>body,input{font-family:"Roboto",-apple-system,BlinkMacSystemFont,Helvetica,Arial,sans-serif}code,kbd,pre{font-family:"Roboto Mono",SFMono-Regular,Consolas,Menlo,monospace}</style>
+      
+    
+    
+    
+      <link rel="stylesheet" href="../css/custom.css">
+    
+    
+      
+    
+    
+  </head>
+  
+  
+    <body dir="ltr">
+  
+    
+    <input class="md-toggle" data-md-toggle="drawer" type="checkbox" id="__drawer" autocomplete="off">
+    <input class="md-toggle" data-md-toggle="search" type="checkbox" id="__search" autocomplete="off">
+    <label class="md-overlay" for="__drawer"></label>
+    <div data-md-component="skip">
+      
+        
+        <a href="#api-documentation" class="md-skip">
+          Skip to content
+        </a>
+      
+    </div>
+    <div data-md-component="announce">
+      
+    </div>
+    
+      <header class="md-header" data-md-component="header">
+  <nav class="md-header-nav md-grid" aria-label="Header">
+    <a href=".." title="Optimized Einsum" class="md-header-nav__button md-logo" aria-label="Optimized Einsum">
+      
+  
+  <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M12 8a3 3 0 003-3 3 3 0 00-3-3 3 3 0 00-3 3 3 3 0 003 3m0 3.54C9.64 9.35 6.5 8 3 8v11c3.5 0 6.64 1.35 9 3.54 2.36-2.19 5.5-3.54 9-3.54V8c-3.5 0-6.64 1.35-9 3.54z"/></svg>
+
+    </a>
+    <label class="md-header-nav__button md-icon" for="__drawer">
+      <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M3 6h18v2H3V6m0 5h18v2H3v-2m0 5h18v2H3v-2z"/></svg>
+    </label>
+    <div class="md-header-nav__title" data-md-component="header-title">
+      
+        <div class="md-header-nav__ellipsis">
+          <span class="md-header-nav__topic md-ellipsis">
+            Optimized Einsum
+          </span>
+          <span class="md-header-nav__topic md-ellipsis">
+            
+              API Reference
+            
+          </span>
+        </div>
+      
+    </div>
+    
+      <label class="md-header-nav__button md-icon" for="__search">
+        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M9.5 3A6.5 6.5 0 0116 9.5c0 1.61-.59 3.09-1.56 4.23l.27.27h.79l5 5-1.5 1.5-5-5v-.79l-.27-.27A6.516 6.516 0 019.5 16 6.5 6.5 0 013 9.5 6.5 6.5 0 019.5 3m0 2C7 5 5 7 5 9.5S7 14 9.5 14 14 12 14 9.5 12 5 9.5 5z"/></svg>
+      </label>
+      
+<div class="md-search" data-md-component="search" role="dialog">
+  <label class="md-search__overlay" for="__search"></label>
+  <div class="md-search__inner" role="search">
+    <form class="md-search__form" name="search">
+      <input type="text" class="md-search__input" name="query" aria-label="Search" placeholder="Search" autocapitalize="off" autocorrect="off" autocomplete="off" spellcheck="false" data-md-component="search-query" data-md-state="active">
+      <label class="md-search__icon md-icon" for="__search">
+        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M9.5 3A6.5 6.5 0 0116 9.5c0 1.61-.59 3.09-1.56 4.23l.27.27h.79l5 5-1.5 1.5-5-5v-.79l-.27-.27A6.516 6.516 0 019.5 16 6.5 6.5 0 013 9.5 6.5 6.5 0 019.5 3m0 2C7 5 5 7 5 9.5S7 14 9.5 14 14 12 14 9.5 12 5 9.5 5z"/></svg>
+        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M20 11v2H8l5.5 5.5-1.42 1.42L4.16 12l7.92-7.92L13.5 5.5 8 11h12z"/></svg>
+      </label>
+      <button type="reset" class="md-search__icon md-icon" aria-label="Clear" data-md-component="search-reset" tabindex="-1">
+        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M19 6.41L17.59 5 12 10.59 6.41 5 5 6.41 10.59 12 5 17.59 6.41 19 12 13.41 17.59 19 19 17.59 13.41 12 19 6.41z"/></svg>
+      </button>
+    </form>
+    <div class="md-search__output">
+      <div class="md-search__scrollwrap" data-md-scrollfix>
+        <div class="md-search-result" data-md-component="search-result">
+          <div class="md-search-result__meta">
+            Initializing search
+          </div>
+          <ol class="md-search-result__list"></ol>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+    
+    
+      <div class="md-header-nav__source">
+        
+<a href="https://github.com/dgasmith/opt_einsum" title="Go to repository" class="md-source">
+  <div class="md-source__icon md-icon">
+    
+    <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 448 512"><path d="M439.55 236.05L244 40.45a28.87 28.87 0 00-40.81 0l-40.66 40.63 51.52 51.52c27.06-9.14 52.68 16.77 43.39 43.68l49.66 49.66c34.23-11.8 61.18 31 35.47 56.69-26.49 26.49-70.21-2.87-56-37.34L240.22 199v121.85c25.3 12.54 22.26 41.85 9.08 55a34.34 34.34 0 01-48.55 0c-17.57-17.6-11.07-46.91 11.25-56v-123c-20.8-8.51-24.6-30.74-18.64-45L142.57 101 8.45 235.14a28.86 28.86 0 000 40.81l195.61 195.6a28.86 28.86 0 0040.8 0l194.69-194.69a28.86 28.86 0 000-40.81z"/></svg>
+  </div>
+  <div class="md-source__repository">
+    dgasmith/opt_einsum
+  </div>
+</a>
+      </div>
+    
+  </nav>
+</header>
+    
+    <div class="md-container" data-md-component="container">
+      
+        
+      
+      
+        
+      
+      <main class="md-main" data-md-component="main">
+        <div class="md-main__inner md-grid">
+          
+            
+              <div class="md-sidebar md-sidebar--primary" data-md-component="navigation">
+                <div class="md-sidebar__scrollwrap">
+                  <div class="md-sidebar__inner">
+                    <nav class="md-nav md-nav--primary" aria-label="Navigation" data-md-level="0">
+  <label class="md-nav__title" for="__drawer">
+    <a href=".." title="Optimized Einsum" class="md-nav__button md-logo" aria-label="Optimized Einsum">
+      
+  
+  <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M12 8a3 3 0 003-3 3 3 0 00-3-3 3 3 0 00-3 3 3 3 0 003 3m0 3.54C9.64 9.35 6.5 8 3 8v11c3.5 0 6.64 1.35 9 3.54 2.36-2.19 5.5-3.54 9-3.54V8c-3.5 0-6.64 1.35-9 3.54z"/></svg>
+
+    </a>
+    Optimized Einsum
+  </label>
+  
+    <div class="md-nav__source">
+      
+<a href="https://github.com/dgasmith/opt_einsum" title="Go to repository" class="md-source">
+  <div class="md-source__icon md-icon">
+    
+    <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 448 512"><path d="M439.55 236.05L244 40.45a28.87 28.87 0 00-40.81 0l-40.66 40.63 51.52 51.52c27.06-9.14 52.68 16.77 43.39 43.68l49.66 49.66c34.23-11.8 61.18 31 35.47 56.69-26.49 26.49-70.21-2.87-56-37.34L240.22 199v121.85c25.3 12.54 22.26 41.85 9.08 55a34.34 34.34 0 01-48.55 0c-17.57-17.6-11.07-46.91 11.25-56v-123c-20.8-8.51-24.6-30.74-18.64-45L142.57 101 8.45 235.14a28.86 28.86 0 000 40.81l195.61 195.6a28.86 28.86 0 0040.8 0l194.69-194.69a28.86 28.86 0 000-40.81z"/></svg>
+  </div>
+  <div class="md-source__repository">
+    dgasmith/opt_einsum
+  </div>
+</a>
+    </div>
+  
+  <ul class="md-nav__list" data-md-scrollfix>
+    
+      
+      
+      
+
+
+  <li class="md-nav__item">
+    <a href=".." title="Overview" class="md-nav__link">
+      Overview
+    </a>
+  </li>
+
+    
+      
+      
+      
+
+
+  <li class="md-nav__item md-nav__item--nested">
+    
+      <input class="md-nav__toggle md-toggle" data-md-toggle="nav-2" type="checkbox" id="nav-2">
+    
+    <label class="md-nav__link" for="nav-2">
+      Getting Started
+      <span class="md-nav__icon md-icon"></span>
+    </label>
+    <nav class="md-nav" aria-label="Getting Started" data-md-level="1">
+      <label class="md-nav__title" for="nav-2">
+        <span class="md-nav__icon md-icon"></span>
+        Getting Started
+      </label>
+      <ul class="md-nav__list" data-md-scrollfix>
+        
+        
+          
+          
+          
+
+
+  <li class="md-nav__item">
+    <a href="../getting_started/install/" title="Installing" class="md-nav__link">
+      Installing
+    </a>
+  </li>
+
+        
+          
+          
+          
+
+
+  <li class="md-nav__item">
+    <a href="../getting_started/input_format/" title="Input Format" class="md-nav__link">
+      Input Format
+    </a>
+  </li>
+
+        
+          
+          
+          
+
+
+  <li class="md-nav__item">
+    <a href="../getting_started/backends/" title="Backends & GPU Support" class="md-nav__link">
+      Backends & GPU Support
+    </a>
+  </li>
+
+        
+          
+          
+          
+
+
+  <li class="md-nav__item">
+    <a href="../getting_started/reusing_paths/" title="Reusing Paths" class="md-nav__link">
+      Reusing Paths
+    </a>
+  </li>
+
+        
+          
+          
+          
+
+
+  <li class="md-nav__item">
+    <a href="../getting_started/sharing_intermediates/" title="Sharing Intermediates" class="md-nav__link">
+      Sharing Intermediates
+    </a>
+  </li>
+
+        
+      </ul>
+    </nav>
+  </li>
+
+    
+      
+      
+      
+
+
+  <li class="md-nav__item md-nav__item--nested">
+    
+      <input class="md-nav__toggle md-toggle" data-md-toggle="nav-3" type="checkbox" id="nav-3">
+    
+    <label class="md-nav__link" for="nav-3">
+      Path Information
+      <span class="md-nav__icon md-icon"></span>
+    </label>
+    <nav class="md-nav" aria-label="Path Information" data-md-level="1">
+      <label class="md-nav__title" for="nav-3">
+        <span class="md-nav__icon md-icon"></span>
+        Path Information
+      </label>
+      <ul class="md-nav__list" data-md-scrollfix>
+        
+        
+          
+          
+          
+
+
+  <li class="md-nav__item">
+    <a href="../paths/introduction/" title="Introduction" class="md-nav__link">
+      Introduction
+    </a>
+  </li>
+
+        
+          
+          
+          
+
+
+  <li class="md-nav__item">
+    <a href="../paths/optimal_path/" title="Optimal Path" class="md-nav__link">
+      Optimal Path
+    </a>
+  </li>
+
+        
+          
+          
+          
+
+
+  <li class="md-nav__item">
+    <a href="../paths/branching_path/" title="Branching Path" class="md-nav__link">
+      Branching Path
+    </a>
+  </li>
+
+        
+          
+          
+          
+
+
+  <li class="md-nav__item">
+    <a href="../paths/greedy_path/" title="Greedy Path" class="md-nav__link">
+      Greedy Path
+    </a>
+  </li>
+
+        
+          
+          
+          
+
+
+  <li class="md-nav__item">
+    <a href="../paths/random_greedy_path/" title="Random-Greedy Path" class="md-nav__link">
+      Random-Greedy Path
+    </a>
+  </li>
+
+        
+          
+          
+          
+
+
+  <li class="md-nav__item">
+    <a href="../paths/dp_path/" title="Dynamic Programming Path" class="md-nav__link">
+      Dynamic Programming Path
+    </a>
+  </li>
+
+        
+          
+          
+          
+
+
+  <li class="md-nav__item">
+    <a href="../paths/custom_paths/" title="Custom Path Optimizers" class="md-nav__link">
+      Custom Path Optimizers
+    </a>
+  </li>
+
+        
+      </ul>
+    </nav>
+  </li>
+
+    
+      
+      
+      
+
+
+  <li class="md-nav__item md-nav__item--nested">
+    
+      <input class="md-nav__toggle md-toggle" data-md-toggle="nav-4" type="checkbox" id="nav-4">
+    
+    <label class="md-nav__link" for="nav-4">
+      Examples
+      <span class="md-nav__icon md-icon"></span>
+    </label>
+    <nav class="md-nav" aria-label="Examples" data-md-level="1">
+      <label class="md-nav__title" for="nav-4">
+        <span class="md-nav__icon md-icon"></span>
+        Examples
+      </label>
+      <ul class="md-nav__list" data-md-scrollfix>
+        
+        
+          
+          
+          
+
+
+  <li class="md-nav__item">
+    <a href="../examples/dask_reusing_intermediaries/" title="Reusing Intermediaries with Dask" class="md-nav__link">
+      Reusing Intermediaries with Dask
+    </a>
+  </li>
+
+        
+          
+          
+          
+
+
+  <li class="md-nav__item">
+    <a href="../examples/large_expr_with_greedy/" title="Large Expressions with Greedy" class="md-nav__link">
+      Large Expressions with Greedy
+    </a>
+  </li>
+
+        
+      </ul>
+    </nav>
+  </li>
+
+    
+      
+      
+      
+
+  
+
+
+  <li class="md-nav__item md-nav__item--active">
+    
+    <input class="md-nav__toggle md-toggle" data-md-toggle="toc" type="checkbox" id="__toc">
+    
+      
+    
+    
+      <label class="md-nav__link md-nav__link--active" for="__toc">
+        API Reference
+        <span class="md-nav__icon md-icon"></span>
+      </label>
+    
+    <a href="./" title="API Reference" class="md-nav__link md-nav__link--active">
+      API Reference
+    </a>
+    
+      
+<nav class="md-nav md-nav--secondary" aria-label="Table of contents">
+  
+  
+    
+  
+  
+    <label class="md-nav__title" for="__toc">
+      <span class="md-nav__icon md-icon"></span>
+      Table of contents
+    </label>
+    <ul class="md-nav__list" data-md-scrollfix>
+      
+        <li class="md-nav__item">
+  <a href="#opt_einsumcontract" class="md-nav__link">
+    opt_einsum.contract
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#opt_einsumcontract_path" class="md-nav__link">
+    opt_einsum.contract_path
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#opt_einsumcontract_expression" class="md-nav__link">
+    opt_einsum.contract_expression
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#opt_einsumcontractcontractexpression" class="md-nav__link">
+    opt_einsum.contract.ContractExpression
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#opt_einsumcontractpathinfo" class="md-nav__link">
+    opt_einsum.contract.PathInfo
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#opt_einsumget_symbol" class="md-nav__link">
+    opt_einsum.get_symbol
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#opt_einsumshared_intermediates" class="md-nav__link">
+    opt_einsum.shared_intermediates
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#opt_einsumpathsoptimal" class="md-nav__link">
+    opt_einsum.paths.optimal
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#opt_einsumpathsgreedy" class="md-nav__link">
+    opt_einsum.paths.greedy
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#opt_einsumpathsbranch" class="md-nav__link">
+    opt_einsum.paths.branch
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#opt_einsumpathspathoptimizer" class="md-nav__link">
+    opt_einsum.paths.PathOptimizer
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#opt_einsumpathsbranchbound" class="md-nav__link">
+    opt_einsum.paths.BranchBound
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#opt_einsumpath_randomrandomoptimizer" class="md-nav__link">
+    opt_einsum.path_random.RandomOptimizer
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#opt_einsumpath_randomrandomgreedy" class="md-nav__link">
+    opt_einsum.path_random.RandomGreedy
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#opt_einsumpathsdynamicprogramming" class="md-nav__link">
+    opt_einsum.paths.DynamicProgramming
+  </a>
+  
+</li>
+      
+    </ul>
+  
+</nav>
+    
+  </li>
+
+    
+      
+      
+      
+
+
+  <li class="md-nav__item">
+    <a href="../changelog/" title="Changelog" class="md-nav__link">
+      Changelog
+    </a>
+  </li>
+
+    
+  </ul>
+</nav>
+                  </div>
+                </div>
+              </div>
+            
+            
+              <div class="md-sidebar md-sidebar--secondary" data-md-component="toc">
+                <div class="md-sidebar__scrollwrap">
+                  <div class="md-sidebar__inner">
+                    
+<nav class="md-nav md-nav--secondary" aria-label="Table of contents">
+  
+  
+    
+  
+  
+    <label class="md-nav__title" for="__toc">
+      <span class="md-nav__icon md-icon"></span>
+      Table of contents
+    </label>
+    <ul class="md-nav__list" data-md-scrollfix>
+      
+        <li class="md-nav__item">
+  <a href="#opt_einsumcontract" class="md-nav__link">
+    opt_einsum.contract
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#opt_einsumcontract_path" class="md-nav__link">
+    opt_einsum.contract_path
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#opt_einsumcontract_expression" class="md-nav__link">
+    opt_einsum.contract_expression
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#opt_einsumcontractcontractexpression" class="md-nav__link">
+    opt_einsum.contract.ContractExpression
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#opt_einsumcontractpathinfo" class="md-nav__link">
+    opt_einsum.contract.PathInfo
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#opt_einsumget_symbol" class="md-nav__link">
+    opt_einsum.get_symbol
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#opt_einsumshared_intermediates" class="md-nav__link">
+    opt_einsum.shared_intermediates
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#opt_einsumpathsoptimal" class="md-nav__link">
+    opt_einsum.paths.optimal
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#opt_einsumpathsgreedy" class="md-nav__link">
+    opt_einsum.paths.greedy
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#opt_einsumpathsbranch" class="md-nav__link">
+    opt_einsum.paths.branch
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#opt_einsumpathspathoptimizer" class="md-nav__link">
+    opt_einsum.paths.PathOptimizer
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#opt_einsumpathsbranchbound" class="md-nav__link">
+    opt_einsum.paths.BranchBound
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#opt_einsumpath_randomrandomoptimizer" class="md-nav__link">
+    opt_einsum.path_random.RandomOptimizer
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#opt_einsumpath_randomrandomgreedy" class="md-nav__link">
+    opt_einsum.path_random.RandomGreedy
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#opt_einsumpathsdynamicprogramming" class="md-nav__link">
+    opt_einsum.paths.DynamicProgramming
+  </a>
+  
+</li>
+      
+    </ul>
+  
+</nav>
+                  </div>
+                </div>
+              </div>
+            
+          
+          <div class="md-content">
+            <article class="md-content__inner md-typeset">
+              
+                
+                  <a href="https://github.com/dgasmith/opt_einsum/edit/master/docs/api_reference.md" title="Edit this page" class="md-content__button md-icon">
+                    <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M20.71 7.04c.39-.39.39-1.04 0-1.41l-2.34-2.34c-.37-.39-1.02-.39-1.41 0l-1.84 1.83 3.75 3.75M3 17.25V21h3.75L17.81 9.93l-3.75-3.75L3 17.25z"/></svg>
+                  </a>
+                
+                
+                  
+                
+                
+                <h1 id="api-documentation">API Documentation</h1>
+<h3 id="opt_einsumcontract"><code>opt_einsum.contract</code></h3>
+<div class="autodoc">
+<div class="autodoc-signature"><code>opt_einsum.<strong>contract</strong></code><span class="autodoc-punctuation">(</span><em class="autodoc-param">*operands_</em><span class="autodoc-punctuation">, </span><em class="autodoc-param">**kwargs</em><span class="autodoc-punctuation">)</span></div>
+<div class="autodoc-docstring"><p>Evaluates the Einstein summation convention on the operands. A drop in
+replacement for NumPy's einsum function that optimizes the order of contraction
+to reduce overall scaling at the cost of several intermediate arrays.</p>
+<p><strong>Parameters:</strong></p>
+<ul>
+<li><strong>subscripts</strong> - <em>(str)</em> Specifies the subscripts for summation.</li>
+<li><strong>*operands</strong> - <em>(list of array_like)</em> hese are the arrays for the operation.</li>
+<li><strong>out</strong> - <em>(array_like)</em> A output array in which set the sresulting output.</li>
+<li><strong>dtype</strong> - <em>(str)</em> The dtype of the given contraction, see np.einsum.</li>
+<li><strong>order</strong> - <em>(str)</em> The order of the resulting contraction, see np.einsum.</li>
+<li><strong>casting</strong> - <em>(str)</em> The casting procedure for operations of different dtype, see np.einsum.</li>
+<li><strong>use_blas</strong> - <em>(bool)</em> Do you use BLAS for valid operations, may use extra memory for more intermediates.</li>
+<li>
+<p><strong>optimize</strong> - <em>(str, list or bool, optional (default: <code>auto</code>))</em> Choose the type of path.</p>
+<ul>
+<li>if a list is given uses this as the path.</li>
+<li><code>'optimal'</code> An algorithm that explores all possible ways of
+  contracting the listed tensors. Scales factorially with the number of
+  terms in the contraction.</li>
+<li><code>'dp'</code> A faster (but essentially optimal) algorithm that uses
+  dynamic programming to exhaustively search all contraction paths
+  without outer-products.</li>
+<li><code>'greedy'</code> An cheap algorithm that heuristically chooses the best
+  pairwise contraction at each step. Scales linearly in the number of
+  terms in the contraction.</li>
+<li><code>'random-greedy'</code> Run a randomized version of the greedy algorithm
+  32 times and pick the best path.</li>
+<li><code>'random-greedy-128'</code> Run a randomized version of the greedy
+  algorithm 128 times and pick the best path.</li>
+<li><code>'branch-all'</code> An algorithm like optimal but that restricts itself
+  to searching 'likely' paths. Still scales factorially.</li>
+<li><code>'branch-2'</code> An even more restricted version of 'branch-all' that
+  only searches the best two options at each step. Scales exponentially
+  with the number of terms in the contraction.</li>
+<li><code>'auto'</code> Choose the best of the above algorithms whilst aiming to
+  keep the path finding time below 1ms.</li>
+<li><code>'auto-hq'</code> Aim for a high quality contraction, choosing the best
+  of the above algorithms whilst aiming to keep the path finding time
+  below 1sec.</li>
+</ul>
+</li>
+<li>
+<p><strong>memory_limit</strong> - <em>({None, int, 'max_input'} (default: <code>None</code>))</em> - Give the upper bound of the largest intermediate tensor contract will build.</p>
+<ul>
+<li>None or -1 means there is no limit</li>
+<li><code>max_input</code> means the limit is set as largest input tensor</li>
+<li>a positive integer is taken as an explicit limit on the number of elements</li>
+</ul>
+<p>The default is None. Note that imposing a limit can make contractions
+exponentially slower to perform.</p>
+</li>
+<li>
+<p><strong>backend</strong> - <em>(str, optional (default: <code>auto</code>))</em> Which library to use to perform the required <code>tensordot</code>, <code>transpose</code>
+    and <code>einsum</code> calls. Should match the types of arrays supplied, See
+    :func:<code>contract_expression</code> for generating expressions which convert
+    numpy arrays to and from the backend library automatically.</p>
+</li>
+</ul>
+<p><strong>Returns:</strong></p>
+<ul>
+<li><strong>out</strong> - <em>(array_like)</em> The result of the einsum expression.</li>
+</ul>
+<p><strong>Notes:</strong></p>
+<p>This function should produce a result identical to that of NumPy's einsum
+function. The primary difference is <code>contract</code> will attempt to form
+intermediates which reduce the overall scaling of the given einsum contraction.
+By default the worst intermediate formed will be equal to that of the largest
+input array. For large einsum expressions with many input arrays this can
+provide arbitrarily large (1000 fold+) speed improvements.</p>
+<p>For contractions with just two tensors this function will attempt to use
+NumPy's built-in BLAS functionality to ensure that the given operation is
+performed optimally. When NumPy is linked to a threaded BLAS, potential
+speedups are on the order of 20-100 for a six core machine.</p></div>
+</div>
+<h3 id="opt_einsumcontract_path"><code>opt_einsum.contract_path</code></h3>
+<div class="autodoc">
+<div class="autodoc-signature"><code>opt_einsum.<strong>contract_path</strong></code><span class="autodoc-punctuation">(</span><em class="autodoc-param">*operands_</em><span class="autodoc-punctuation">, </span><em class="autodoc-param">**kwargs</em><span class="autodoc-punctuation">)</span></div>
+<div class="autodoc-docstring"><p>Find a contraction order <code>path</code>, without performing the contraction.</p>
+<p><strong>Parameters:</strong></p>
+<ul>
+<li><strong>subscripts</strong> - <em>(str)</em> Specifies the subscripts for summation.</li>
+<li><strong>*operands</strong> - <em>(list of array_like)</em> hese are the arrays for the operation.</li>
+<li><strong>use_blas</strong> - <em>(bool)</em> Do you use BLAS for valid operations, may use extra memory for more intermediates.</li>
+<li>
+<p><strong>optimize</strong> - <em>(str, list or bool, optional (default: <code>auto</code>))</em> Choose the type of path.</p>
+<ul>
+<li>if a list is given uses this as the path.</li>
+<li><code>'optimal'</code> An algorithm that explores all possible ways of
+  contracting the listed tensors. Scales factorially with the number of
+  terms in the contraction.</li>
+<li><code>'dp'</code> A faster (but essentially optimal) algorithm that uses
+  dynamic programming to exhaustively search all contraction paths
+  without outer-products.</li>
+<li><code>'greedy'</code> An cheap algorithm that heuristically chooses the best
+  pairwise contraction at each step. Scales linearly in the number of
+  terms in the contraction.</li>
+<li><code>'random-greedy'</code> Run a randomized version of the greedy algorithm
+  32 times and pick the best path.</li>
+<li><code>'random-greedy-128'</code> Run a randomized version of the greedy
+  algorithm 128 times and pick the best path.</li>
+<li><code>'branch-all'</code> An algorithm like optimal but that restricts itself
+  to searching 'likely' paths. Still scales factorially.</li>
+<li><code>'branch-2'</code> An even more restricted version of 'branch-all' that
+  only searches the best two options at each step. Scales exponentially
+  with the number of terms in the contraction.</li>
+<li><code>'auto'</code> Choose the best of the above algorithms whilst aiming to
+  keep the path finding time below 1ms.</li>
+<li><code>'auto-hq'</code> Aim for a high quality contraction, choosing the best
+  of the above algorithms whilst aiming to keep the path finding time
+  below 1sec.</li>
+</ul>
+</li>
+<li>
+<p><strong>memory_limit</strong> - <em>({None, int, 'max_input'} (default: <code>None</code>))</em> - Give the upper bound of the largest intermediate tensor contract will build.</p>
+<ul>
+<li>None or -1 means there is no limit</li>
+<li><code>max_input</code> means the limit is set as largest input tensor</li>
+<li>a positive integer is taken as an explicit limit on the number of elements</li>
+</ul>
+<p>The default is None. Note that imposing a limit can make contractions
+exponentially slower to perform.</p>
+</li>
+<li>
+<p><strong>shapes</strong> - <em>(bool, optional)</em> Whether <code>contract_path</code> should assume arrays (the default) or array shapes have been supplied.</p>
+</li>
+</ul>
+<p><strong>Returns:</strong></p>
+<ul>
+<li><strong>path</strong> - <em>(list of tuples)</em> The einsum path</li>
+<li><strong>PathInfo</strong> - <em>(str)</em> A printable object containing various information about the path found.</li>
+</ul>
+<p><strong>Notes:</strong></p>
+<p>The resulting path indicates which terms of the input contraction should be
+contracted first, the result of this contraction is then appended to the end of
+the contraction list.</p>
+<p><strong>Examples:</strong></p>
+<p>We can begin with a chain dot example. In this case, it is optimal to
+contract the b and c tensors represented by the first element of the path (1,
+2). The resulting tensor is added to the end of the contraction and the
+remaining contraction, <code>(0, 1)</code>, is then executed.</p>
+<div class="highlight"><pre><span></span><code><span class="n">a</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">random</span><span class="o">.</span><span class="n">rand</span><span class="p">(</span><span class="mi">2</span><span class="p">,</span> <span class="mi">2</span><span class="p">)</span>
+<span class="n">b</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">random</span><span class="o">.</span><span class="n">rand</span><span class="p">(</span><span class="mi">2</span><span class="p">,</span> <span class="mi">5</span><span class="p">)</span>
+<span class="n">c</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">random</span><span class="o">.</span><span class="n">rand</span><span class="p">(</span><span class="mi">5</span><span class="p">,</span> <span class="mi">2</span><span class="p">)</span>
+<span class="n">path_info</span> <span class="o">=</span> <span class="n">opt_einsum</span><span class="o">.</span><span class="n">contract_path</span><span class="p">(</span><span class="s1">&#39;ij,jk,kl-&gt;il&#39;</span><span class="p">,</span> <span class="n">a</span><span class="p">,</span> <span class="n">b</span><span class="p">,</span> <span class="n">c</span><span class="p">)</span>
+<span class="nb">print</span><span class="p">(</span><span class="n">path_info</span><span class="p">[</span><span class="mi">0</span><span class="p">])</span>
+<span class="c1">#&gt; [(1, 2), (0, 1)]</span>
+<span class="nb">print</span><span class="p">(</span><span class="n">path_info</span><span class="p">[</span><span class="mi">1</span><span class="p">])</span>
+<span class="c1">#&gt;   Complete contraction:  ij,jk,kl-&gt;il</span>
+<span class="c1">#&gt;          Naive scaling:  4</span>
+<span class="c1">#&gt;      Optimized scaling:  3</span>
+<span class="c1">#&gt;       Naive FLOP count:  1.600e+02</span>
+<span class="c1">#&gt;   Optimized FLOP count:  5.600e+01</span>
+<span class="c1">#&gt;    Theoretical speedup:  2.857</span>
+<span class="c1">#&gt;   Largest intermediate:  4.000e+00 elements</span>
+<span class="c1">#&gt; -------------------------------------------------------------------------</span>
+<span class="c1">#&gt; scaling                  current                                remaining</span>
+<span class="c1">#&gt; -------------------------------------------------------------------------</span>
+<span class="c1">#&gt;    3                   kl,jk-&gt;jl                                ij,jl-&gt;il</span>
+<span class="c1">#&gt;    3                   jl,ij-&gt;il                                   il-&gt;il</span>
+</code></pre></div>
+<p>A more complex index transformation example.</p>
+<div class="highlight"><pre><span></span><code><span class="n">I</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">random</span><span class="o">.</span><span class="n">rand</span><span class="p">(</span><span class="mi">10</span><span class="p">,</span> <span class="mi">10</span><span class="p">,</span> <span class="mi">10</span><span class="p">,</span> <span class="mi">10</span><span class="p">)</span>
+<span class="n">C</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">random</span><span class="o">.</span><span class="n">rand</span><span class="p">(</span><span class="mi">10</span><span class="p">,</span> <span class="mi">10</span><span class="p">)</span>
+<span class="n">path_info</span> <span class="o">=</span> <span class="n">oe</span><span class="o">.</span><span class="n">contract_path</span><span class="p">(</span><span class="s1">&#39;ea,fb,abcd,gc,hd-&gt;efgh&#39;</span><span class="p">,</span> <span class="n">C</span><span class="p">,</span> <span class="n">C</span><span class="p">,</span> <span class="n">I</span><span class="p">,</span> <span class="n">C</span><span class="p">,</span> <span class="n">C</span><span class="p">)</span>
+
+<span class="nb">print</span><span class="p">(</span><span class="n">path_info</span><span class="p">[</span><span class="mi">0</span><span class="p">])</span>
+<span class="c1">#&gt; [(0, 2), (0, 3), (0, 2), (0, 1)]</span>
+<span class="nb">print</span><span class="p">(</span><span class="n">path_info</span><span class="p">[</span><span class="mi">1</span><span class="p">])</span>
+<span class="c1">#&gt;   Complete contraction:  ea,fb,abcd,gc,hd-&gt;efgh</span>
+<span class="c1">#&gt;          Naive scaling:  8</span>
+<span class="c1">#&gt;      Optimized scaling:  5</span>
+<span class="c1">#&gt;       Naive FLOP count:  8.000e+08</span>
+<span class="c1">#&gt;   Optimized FLOP count:  8.000e+05</span>
+<span class="c1">#&gt;    Theoretical speedup:  1000.000</span>
+<span class="c1">#&gt;   Largest intermediate:  1.000e+04 elements</span>
+<span class="c1">#&gt; --------------------------------------------------------------------------</span>
+<span class="c1">#&gt; scaling                  current                                remaining</span>
+<span class="c1">#&gt; --------------------------------------------------------------------------</span>
+<span class="c1">#&gt;    5               abcd,ea-&gt;bcde                      fb,gc,hd,bcde-&gt;efgh</span>
+<span class="c1">#&gt;    5               bcde,fb-&gt;cdef                         gc,hd,cdef-&gt;efgh</span>
+<span class="c1">#&gt;    5               cdef,gc-&gt;defg                            hd,defg-&gt;efgh</span>
+<span class="c1">#&gt;    5               defg,hd-&gt;efgh                               efgh-&gt;efgh</span>
+</code></pre></div></div>
+</div>
+<h3 id="opt_einsumcontract_expression"><code>opt_einsum.contract_expression</code></h3>
+<div class="autodoc">
+<div class="autodoc-signature"><code>opt_einsum.<strong>contract_expression</strong></code><span class="autodoc-punctuation">(</span><em class="autodoc-param">subscripts</em><span class="autodoc-punctuation">, </span><em class="autodoc-param">*shapes</em><span class="autodoc-punctuation">, </span><em class="autodoc-param">**kwargs</em><span class="autodoc-punctuation">)</span></div>
+<div class="autodoc-docstring"><p>Generate a reusable expression for a given contraction with
+specific shapes, which can, for example, be cached.</p>
+<p><strong>Parameters:</strong></p>
+<ul>
+<li><strong>subscripts</strong> - <em>(str)</em> Specifies the subscripts for summation.</li>
+<li><strong>shapes</strong> - <em>(sequence of integer tuples)</em> Shapes of the arrays to optimize the contraction for.</li>
+<li><strong>constants</strong> - <em>(sequence of int, optional)</em> The indices of any constant arguments in <code>shapes</code>, in which case the
+    actual array should be supplied at that position rather than just a
+    shape. If these are specified, then constant parts of the contraction
+    between calls will be reused. Additionally, if a GPU-enabled backend is
+    used for example, then the constant tensors will be kept on the GPU,
+    minimizing transfers.</li>
+<li><strong>kwargs</strong> - Passed on to <code>contract_path</code> or <code>einsum</code>. See <code>contract</code>.</li>
+</ul>
+<p><strong>Returns:</strong></p>
+<ul>
+<li><strong>expr</strong> - <em>(ContractExpression)</em> Callable with signature <code>expr(*arrays, out=None, backend='numpy')</code> where the array's shapes should match <code>shapes</code>.</li>
+</ul>
+<p><strong>Notes:</strong></p>
+<ul>
+<li>The <code>out</code> keyword argument should be supplied to the generated expression
+  rather than this function.</li>
+<li>The <code>backend</code> keyword argument should also be supplied to the generated
+  expression. If numpy arrays are supplied, if possible they will be
+  converted to and back from the correct backend array type.</li>
+<li>The generated expression will work with any arrays which have
+  the same rank (number of dimensions) as the original shapes, however, if
+  the actual sizes are different, the expression may no longer be optimal.</li>
+<li>Constant operations will be computed upon the first call with a particular
+  backend, then subsequently reused.</li>
+</ul>
+<p><strong>Examples:</strong></p>
+<p>Basic usage:</p>
+<div class="highlight"><pre><span></span><code><span class="n">expr</span> <span class="o">=</span> <span class="n">contract_expression</span><span class="p">(</span><span class="s2">&quot;ab,bc-&gt;ac&quot;</span><span class="p">,</span> <span class="p">(</span><span class="mi">3</span><span class="p">,</span> <span class="mi">4</span><span class="p">),</span> <span class="p">(</span><span class="mi">4</span><span class="p">,</span> <span class="mi">5</span><span class="p">))</span>
+<span class="n">a</span><span class="p">,</span> <span class="n">b</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">random</span><span class="o">.</span><span class="n">rand</span><span class="p">(</span><span class="mi">3</span><span class="p">,</span> <span class="mi">4</span><span class="p">),</span> <span class="n">np</span><span class="o">.</span><span class="n">random</span><span class="o">.</span><span class="n">rand</span><span class="p">(</span><span class="mi">4</span><span class="p">,</span> <span class="mi">5</span><span class="p">)</span>
+<span class="n">c</span> <span class="o">=</span> <span class="n">expr</span><span class="p">(</span><span class="n">a</span><span class="p">,</span> <span class="n">b</span><span class="p">)</span>
+<span class="n">np</span><span class="o">.</span><span class="n">allclose</span><span class="p">(</span><span class="n">c</span><span class="p">,</span> <span class="n">a</span> <span class="o">@</span> <span class="n">b</span><span class="p">)</span>
+<span class="c1">#&gt; True</span>
+</code></pre></div>
+<p>Supply <code>a</code> as a constant:</p>
+<div class="highlight"><pre><span></span><code><span class="n">expr</span> <span class="o">=</span> <span class="n">contract_expression</span><span class="p">(</span><span class="s2">&quot;ab,bc-&gt;ac&quot;</span><span class="p">,</span> <span class="n">a</span><span class="p">,</span> <span class="p">(</span><span class="mi">4</span><span class="p">,</span> <span class="mi">5</span><span class="p">),</span> <span class="n">constants</span><span class="o">=</span><span class="p">[</span><span class="mi">0</span><span class="p">])</span>
+<span class="n">expr</span>
+<span class="c1">#&gt; &lt;ContractExpression(&#39;[ab],bc-&gt;ac&#39;, constants=[0])&gt;</span>
+
+<span class="n">c</span> <span class="o">=</span> <span class="n">expr</span><span class="p">(</span><span class="n">b</span><span class="p">)</span>
+<span class="n">np</span><span class="o">.</span><span class="n">allclose</span><span class="p">(</span><span class="n">c</span><span class="p">,</span> <span class="n">a</span> <span class="o">@</span> <span class="n">b</span><span class="p">)</span>
+<span class="c1">#&gt; True</span>
+</code></pre></div></div>
+<div class="autodoc-members"></div>
+</div>
+<h3 id="opt_einsumcontractcontractexpression"><code>opt_einsum.contract.ContractExpression</code></h3>
+<div class="autodoc">
+<div class="autodoc-signature"><em>class </em><code>opt_einsum.contract.<strong>ContractExpression</strong></code><span class="autodoc-punctuation">(</span><em class="autodoc-param">contraction</em><span class="autodoc-punctuation">, </span><em class="autodoc-param">contraction_list</em><span class="autodoc-punctuation">, </span><em class="autodoc-param">constants_dict</em><span class="autodoc-punctuation">, </span><em class="autodoc-param">**einsum_kwargs</em><span class="autodoc-punctuation">)</span></div>
+<div class="autodoc-docstring"><p>Helper class for storing an explicit <code>contraction_list</code> which can
+then be repeatedly called solely with the array arguments.</p></div>
+<div class="autodoc-members">
+<div class="autodoc-signature"><code><strong>evaluate_constants</strong></code><span class="autodoc-punctuation">(</span><em class="autodoc-param">self</em><span class="autodoc-punctuation">, </span><em class="autodoc-param">backend='auto'</em><span class="autodoc-punctuation">)</span></div>
+<div class="autodoc-docstring"><p>Convert any constant operands to the correct backend form, and
+perform as many contractions as possible to create a new list of
+operands, stored in <code>self._evaluated_constants[backend]</code>. This also
+makes sure <code>self.contraction_list</code> only contains the remaining,
+non-const operations.</p></div>
+</div>
+</div>
+<h3 id="opt_einsumcontractpathinfo"><code>opt_einsum.contract.PathInfo</code></h3>
+<div class="autodoc">
+<div class="autodoc-signature"><em>class </em><code>opt_einsum.contract.<strong>PathInfo</strong></code><span class="autodoc-punctuation">(</span><em class="autodoc-param">contraction_list</em><span class="autodoc-punctuation">, </span><em class="autodoc-param">input_subscripts</em><span class="autodoc-punctuation">, </span><em class="autodoc-param">output_subscript</em><span class="autodoc-punctuation">, </span><em class="autodoc-param">indices</em><span class="autodoc-punctuation">, </span><em class="autodoc-param">path</em><span class="autodoc-punctuation">, </span><em class="autodoc-param">scale_list</em><span class="autodoc-punctuation">, </span><em class="autodoc-param">naive_cost</em><span class="autodoc-punctuation">, </span><em class="autodoc-param">opt_cost</em><span class="autodoc-punctuation">, </span><em class="autodoc-param">size_list</em><span class="autodoc-punctuation">, </span><em class="autodoc-param">size_dict</em><span class="autodoc-punctuation">)</span></div>
+<div class="autodoc-docstring"><p>A printable object to contain information about a contraction path.</p>
+<p><strong>Attributes:</strong></p>
+<ul>
+<li><strong>naive_cost</strong> - <em>(int)</em> The estimate FLOP cost of a naive einsum contraction.</li>
+<li><strong>opt_cost</strong> - <em>(int)</em> The estimate FLOP cost of this optimized contraction path.</li>
+<li><strong>largest_intermediate</strong> - <em>(int)</em> The number of elements in the largest intermediate array that will be produced during the contraction.</li>
+</ul></div>
+</div>
+<h3 id="opt_einsumget_symbol"><code>opt_einsum.get_symbol</code></h3>
+<div class="autodoc">
+<div class="autodoc-signature"><code>opt_einsum.<strong>get_symbol</strong></code><span class="autodoc-punctuation">(</span><em class="autodoc-param">i</em><span class="autodoc-punctuation">)</span></div>
+<div class="autodoc-docstring"><p>Get the symbol corresponding to int <code>i</code> - runs through the usual 52
+letters before resorting to unicode characters, starting at <code>chr(192)</code> and skipping surrogates.</p>
+<p><strong>Examples:</strong></p>
+<div class="highlight"><pre><span></span><code><span class="n">get_symbol</span><span class="p">(</span><span class="mi">2</span><span class="p">)</span>
+<span class="c1">#&gt; &#39;c&#39;</span>
+
+<span class="n">get_symbol</span><span class="p">(</span><span class="mi">200</span><span class="p">)</span>
+<span class="c1">#&gt; &#39;Ŕ&#39;</span>
+
+<span class="n">get_symbol</span><span class="p">(</span><span class="mi">20000</span><span class="p">)</span>
+<span class="c1">#&gt; &#39;京&#39;</span>
+</code></pre></div></div>
+</div>
+<h3 id="opt_einsumshared_intermediates"><code>opt_einsum.shared_intermediates</code></h3>
+<div class="autodoc">
+<div class="autodoc-signature"><code>opt_einsum.<strong>shared_intermediates</strong></code><span class="autodoc-punctuation">(</span><em class="autodoc-param">cache=None</em><span class="autodoc-punctuation">)</span></div>
+<div class="autodoc-docstring"><p>Context in which contract intermediate results are shared.</p>
+<p>Note that intermediate computations will not be garbage collected until
+1. this context exits, and
+2. the yielded cache is garbage collected (if it was captured).</p>
+<p><strong>Parameters:</strong></p>
+<ul>
+<li><strong>cache</strong> - <em>(dict)</em> If specified, a user-stored dict in which intermediate results will be stored. This can be used to interleave sharing contexts.</li>
+</ul>
+<p><strong>Returns:</strong></p>
+<ul>
+<li><strong>cache</strong> - <em>(dict)</em> A dictionary in which sharing results are stored. If ignored,
+    sharing results will be garbage collected when this context is
+    exited. This dict can be passed to another context to resume
+    sharing.</li>
+</ul></div>
+</div>
+<h3 id="opt_einsumpathsoptimal"><code>opt_einsum.paths.optimal</code></h3>
+<div class="autodoc">
+<div class="autodoc-signature"><code>opt_einsum.paths.<strong>optimal</strong></code><span class="autodoc-punctuation">(</span><em class="autodoc-param">inputs</em><span class="autodoc-punctuation">, </span><em class="autodoc-param">output</em><span class="autodoc-punctuation">, </span><em class="autodoc-param">size_dict</em><span class="autodoc-punctuation">, </span><em class="autodoc-param">memory_limit=None</em><span class="autodoc-punctuation">)</span></div>
+<div class="autodoc-docstring"><p>Computes all possible pair contractions in a depth-first recursive manner,
+sieving results based on <code>memory_limit</code> and the best path found so far.
+<strong>Returns:</strong> the lowest cost path. This algorithm scales factoriallly with
+respect to the elements in the list <code>input_sets</code>.</p>
+<p><strong>Parameters:</strong></p>
+<ul>
+<li><strong>inputs</strong> - <em>(list)</em> List of sets that represent the lhs side of the einsum subscript.</li>
+<li><strong>output</strong> - <em>(set)</em> Set that represents the rhs side of the overall einsum subscript.</li>
+<li><strong>size_dict</strong> - <em>(dictionary)</em> Dictionary of index sizes.</li>
+<li><strong>memory_limit</strong> - <em>(int)</em> The maximum number of elements in a temporary array.</li>
+</ul>
+<p><strong>Returns:</strong></p>
+<ul>
+<li><strong>path</strong> - <em>(list)</em> The optimal contraction order within the memory limit constraint.</li>
+</ul>
+<p><strong>Examples:</strong></p>
+<div class="highlight"><pre><span></span><code><span class="n">isets</span> <span class="o">=</span> <span class="p">[</span><span class="nb">set</span><span class="p">(</span><span class="s1">&#39;abd&#39;</span><span class="p">),</span> <span class="nb">set</span><span class="p">(</span><span class="s1">&#39;ac&#39;</span><span class="p">),</span> <span class="nb">set</span><span class="p">(</span><span class="s1">&#39;bdc&#39;</span><span class="p">)]</span>
+<span class="n">oset</span> <span class="o">=</span> <span class="nb">set</span><span class="p">(</span><span class="s1">&#39;&#39;</span><span class="p">)</span>
+<span class="n">idx_sizes</span> <span class="o">=</span> <span class="p">{</span><span class="s1">&#39;a&#39;</span><span class="p">:</span> <span class="mi">1</span><span class="p">,</span> <span class="s1">&#39;b&#39;</span><span class="p">:</span><span class="mi">2</span><span class="p">,</span> <span class="s1">&#39;c&#39;</span><span class="p">:</span><span class="mi">3</span><span class="p">,</span> <span class="s1">&#39;d&#39;</span><span class="p">:</span><span class="mi">4</span><span class="p">}</span>
+<span class="n">optimal</span><span class="p">(</span><span class="n">isets</span><span class="p">,</span> <span class="n">oset</span><span class="p">,</span> <span class="n">idx_sizes</span><span class="p">,</span> <span class="mi">5000</span><span class="p">)</span>
+<span class="c1">#&gt; [(0, 2), (0, 1)]</span>
+</code></pre></div></div>
+</div>
+<h3 id="opt_einsumpathsgreedy"><code>opt_einsum.paths.greedy</code></h3>
+<div class="autodoc">
+<div class="autodoc-signature"><code>opt_einsum.paths.<strong>greedy</strong></code><span class="autodoc-punctuation">(</span><em class="autodoc-param">inputs</em><span class="autodoc-punctuation">, </span><em class="autodoc-param">output</em><span class="autodoc-punctuation">, </span><em class="autodoc-param">size_dict</em><span class="autodoc-punctuation">, </span><em class="autodoc-param">memory_limit=None</em><span class="autodoc-punctuation">, </span><em class="autodoc-param">choose_fn=None</em><span class="autodoc-punctuation">, </span><em class="autodoc-param">cost_fn='memory-removed'</em><span class="autodoc-punctuation">)</span></div>
+<div class="autodoc-docstring"><p>Finds the path by a three stage algorithm:</p>
+<ol>
+<li>Eagerly compute Hadamard products.</li>
+<li>Greedily compute contractions to maximize <code>removed_size</code></li>
+<li>Greedily compute outer products.</li>
+</ol>
+<p>This algorithm scales quadratically with respect to the
+maximum number of elements sharing a common dim.</p>
+<p><strong>Parameters:</strong></p>
+<ul>
+<li><strong>inputs</strong> - <em>(list)</em> List of sets that represent the lhs side of the einsum subscript</li>
+<li><strong>output</strong> - <em>(set)</em> Set that represents the rhs side of the overall einsum subscript</li>
+<li><strong>size_dict</strong> - <em>(dictionary)</em> Dictionary of index sizes</li>
+<li><strong>memory_limit</strong> - <em>(int)</em> The maximum number of elements in a temporary array</li>
+<li><strong>choose_fn</strong> - <em>(callable, optional)</em> A function that chooses which contraction to perform from the queue</li>
+<li><strong>cost_fn</strong> - <em>(callable, optional)</em> A function that assigns a potential contraction a cost.</li>
+</ul>
+<p><strong>Returns:</strong></p>
+<ul>
+<li><strong>path</strong> - <em>(list)</em> The contraction order (a list of tuples of ints).</li>
+</ul>
+<p><strong>Examples:</strong></p>
+<div class="highlight"><pre><span></span><code><span class="n">isets</span> <span class="o">=</span> <span class="p">[</span><span class="nb">set</span><span class="p">(</span><span class="s1">&#39;abd&#39;</span><span class="p">),</span> <span class="nb">set</span><span class="p">(</span><span class="s1">&#39;ac&#39;</span><span class="p">),</span> <span class="nb">set</span><span class="p">(</span><span class="s1">&#39;bdc&#39;</span><span class="p">)]</span>
+<span class="n">oset</span> <span class="o">=</span> <span class="nb">set</span><span class="p">(</span><span class="s1">&#39;&#39;</span><span class="p">)</span>
+<span class="n">idx_sizes</span> <span class="o">=</span> <span class="p">{</span><span class="s1">&#39;a&#39;</span><span class="p">:</span> <span class="mi">1</span><span class="p">,</span> <span class="s1">&#39;b&#39;</span><span class="p">:</span><span class="mi">2</span><span class="p">,</span> <span class="s1">&#39;c&#39;</span><span class="p">:</span><span class="mi">3</span><span class="p">,</span> <span class="s1">&#39;d&#39;</span><span class="p">:</span><span class="mi">4</span><span class="p">}</span>
+<span class="n">greedy</span><span class="p">(</span><span class="n">isets</span><span class="p">,</span> <span class="n">oset</span><span class="p">,</span> <span class="n">idx_sizes</span><span class="p">)</span>
+<span class="c1">#&gt; [(0, 2), (0, 1)]</span>
+</code></pre></div></div>
+</div>
+<h3 id="opt_einsumpathsbranch"><code>opt_einsum.paths.branch</code></h3>
+<div class="autodoc">
+<div class="autodoc-signature"><code>opt_einsum.paths.<strong>branch</strong></code><span class="autodoc-punctuation">(</span><em class="autodoc-param">inputs</em><span class="autodoc-punctuation">, </span><em class="autodoc-param">output</em><span class="autodoc-punctuation">, </span><em class="autodoc-param">size_dict</em><span class="autodoc-punctuation">, </span><em class="autodoc-param">memory_limit=None</em><span class="autodoc-punctuation">, </span><em class="autodoc-param">**optimizer_kwargs</em><span class="autodoc-punctuation">)</span></div>
+<div class="autodoc-docstring"></div>
+</div>
+<h3 id="opt_einsumpathspathoptimizer"><code>opt_einsum.paths.PathOptimizer</code></h3>
+<div class="autodoc">
+<div class="autodoc-signature"><em>class </em><code>opt_einsum.paths.<strong>PathOptimizer</strong></code><span class="autodoc-punctuation">(</span><span class="autodoc-punctuation">)</span></div>
+<div class="autodoc-docstring"><p>Base class for different path optimizers to inherit from.</p>
+<p>Subclassed optimizers should define a call method with signature:</p>
+<div class="highlight"><pre><span></span><code><span class="k">def</span> <span class="fm"><strong>call</strong></span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">inputs</span><span class="p">,</span> <span class="n">output</span><span class="p">,</span> <span class="n">size_dict</span><span class="p">,</span> <span class="n">memory_limit</span><span class="o">=</span><span class="kc">None</span><span class="p">):</span>
+    <span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">    <strong>Parameters:</strong></span>
+<span class="sd">    ----------</span>
+<span class="sd">    inputs : list[set[str]]</span>
+<span class="sd">        The indices of each input array.</span>
+<span class="sd">    outputs : set[str]</span>
+<span class="sd">        The output indices</span>
+<span class="sd">    size_dict : dict[str, int]</span>
+<span class="sd">        The size of each index</span>
+<span class="sd">    memory_limit : int, optional</span>
+<span class="sd">        If given, the maximum allowed memory.</span>
+<span class="sd">    &quot;&quot;&quot;</span>
+    <span class="c1"># ... compute path here ...</span>
+    <span class="k">return</span> <span class="n">path</span>
+</code></pre></div>
+<p>where <code>path</code> is a list of int-tuples specifying a contraction order.</p></div>
+<div class="autodoc-members"></div>
+</div>
+<h3 id="opt_einsumpathsbranchbound"><code>opt_einsum.paths.BranchBound</code></h3>
+<div class="autodoc">
+<div class="autodoc-signature"><em>class </em><code>opt_einsum.paths.<strong>BranchBound</strong></code><span class="autodoc-punctuation">(</span><em class="autodoc-param">nbranch=None</em><span class="autodoc-punctuation">, </span><em class="autodoc-param">cutoff_flops_factor=4</em><span class="autodoc-punctuation">, </span><em class="autodoc-param">minimize='flops'</em><span class="autodoc-punctuation">, </span><em class="autodoc-param">cost_fn='memory-removed'</em><span class="autodoc-punctuation">)</span></div>
+<div class="autodoc-docstring"><p>Explores possible pair contractions in a depth-first recursive manner like
+the <code>optimal</code> approach, but with extra heuristic early pruning of branches
+as well sieving by <code>memory_limit</code> and the best path found so far. <strong>Returns:</strong>
+the lowest cost path. This algorithm still scales factorially with respect
+to the elements in the list <code>input_sets</code> if <code>nbranch</code> is not set, but it
+scales exponentially like <code>nbranch**len(input_sets)</code> otherwise.</p>
+<p><strong>Parameters:</strong></p>
+<ul>
+<li><strong>nbranch</strong> - <em>(None or int, optional)</em> How many branches to explore at each contraction step. If None, explore
+    all possible branches. If an integer, branch into this many paths at
+    each step. Defaults to None.</li>
+<li><strong>cutoff_flops_factor</strong> - <em>(float, optional)</em> If at any point, a path is doing this much worse than the best path
+    found so far was, terminate it. The larger this is made, the more paths
+    will be fully explored and the slower the algorithm. Defaults to 4.</li>
+<li><strong>minimize</strong> - <em>({'flops', 'size'}, optional)</em> Whether to optimize the path with regard primarily to the total
+    estimated flop-count, or the size of the largest intermediate. The
+    option not chosen will still be used as a secondary criterion.</li>
+<li><strong>cost_fn</strong> - <em>(callable, optional)</em> A function that returns a heuristic 'cost' of a potential contraction
+    with which to sort candidates. Should have signature
+    <code>cost_fn(size12, size1, size2, k12, k1, k2)</code>.</li>
+</ul></div>
+<div class="autodoc-members">
+<div class="autodoc-signature"><code><strong>path</strong></code></div>
+<div class="autodoc-docstring"></div>
+</div>
+</div>
+<h3 id="opt_einsumpath_randomrandomoptimizer"><code>opt_einsum.path_random.RandomOptimizer</code></h3>
+<div class="autodoc">
+<div class="autodoc-signature"><em>class </em><code>opt_einsum.path_random.<strong>RandomOptimizer</strong></code><span class="autodoc-punctuation">(</span><em class="autodoc-param">max_repeats=32</em><span class="autodoc-punctuation">, </span><em class="autodoc-param">max_time=None</em><span class="autodoc-punctuation">, </span><em class="autodoc-param">minimize='flops'</em><span class="autodoc-punctuation">, </span><em class="autodoc-param">parallel=False</em><span class="autodoc-punctuation">, </span><em class="autodoc-param">pre_dispatch=128</em><span class="autodoc-punctuation">)</span></div>
+<div class="autodoc-docstring"><p>Base class for running any random path finder that benefits
+from repeated calling, possibly in a parallel fashion. Custom random
+optimizers should subclass this, and the <code>setup</code> method should be
+implemented with the following signature:</p>
+<div class="highlight"><pre><span></span><code><span class="k">def</span> <span class="nf">setup</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">inputs</span><span class="p">,</span> <span class="n">output</span><span class="p">,</span> <span class="n">size_dict</span><span class="p">):</span>
+    <span class="c1"># custom preparation here ...</span>
+    <span class="k">return</span> <span class="n">trial_fn</span><span class="p">,</span> <span class="n">trial_args</span>
+</code></pre></div>
+<p>Where <code>trial_fn</code> itself should have the signature::</p>
+<div class="highlight"><pre><span></span><code><span class="k">def</span> <span class="nf">trial_fn</span><span class="p">(</span><span class="n">r</span><span class="p">,</span> <span class="o">*</span><span class="n">trial_args</span><span class="p">):</span>
+    <span class="c1"># custom computation of path here</span>
+    <span class="k">return</span> <span class="n">ssa_path</span><span class="p">,</span> <span class="n">cost</span><span class="p">,</span> <span class="n">size</span>
+</code></pre></div>
+<p>Where <code>r</code> is the run number and could for example be used to seed a
+random number generator. See <code>RandomGreedy</code> for an example.</p>
+<p><strong>Parameters:</strong></p>
+<ul>
+<li><strong>max_repeats</strong> - <em>(int, optional)</em> The maximum number of repeat trials to have.</li>
+<li><strong>max_time</strong> - <em>(float, optional)</em> The maximum amount of time to run the algorithm for.</li>
+<li><strong>minimize</strong> - <em>({'flops', 'size'}, optional)</em> Whether to favour paths that minimize the total estimated flop-count or
+    the size of the largest intermediate created.</li>
+<li><strong>parallel</strong> - <em>({bool, int, or executor-pool like}, optional)</em> Whether to parallelize the random trials, by default <code>False</code>. If
+    <code>True</code>, use a <code>concurrent.futures.ProcessPoolExecutor</code> with the same
+    number of processes as cores. If an integer is specified, use that many
+    processes instead. Finally, you can supply a custom executor-pool which
+    should have an API matching that of the python 3 standard library
+    module <code>concurrent.futures</code>. Namely, a <code>submit</code> method that returns
+    <code>Future</code> objects, themselves with <code>result</code> and <code>cancel</code> methods.</li>
+<li><strong>pre_dispatch</strong> - <em>(int, optional)</em> If running in parallel, how many jobs to pre-dispatch so as to avoid
+    submitting all jobs at once. Should also be more than twice the number
+    of workers to avoid under-subscription. Default: 128.</li>
+</ul>
+<p><strong>Attributes:</strong></p>
+<ul>
+<li><strong>path</strong> - <em>(list[tuple[int]])</em> The best path found so far.</li>
+<li><strong>costs</strong> - <em>(list[int])</em> The list of each trial's costs found so far.</li>
+<li><strong>sizes</strong> - <em>(list[int])</em> The list of each trial's largest intermediate size so far.</li>
+</ul></div>
+<div class="autodoc-members">
+<div class="autodoc-signature"><code><strong>parallel</strong></code></div>
+<div class="autodoc-docstring"></div>
+<div class="autodoc-signature"><code><strong>path</strong></code></div>
+<div class="autodoc-docstring"><p>The best path found so far.</p></div>
+<div class="autodoc-signature"><code><strong>setup</strong></code><span class="autodoc-punctuation">(</span><em class="autodoc-param">self</em><span class="autodoc-punctuation">, </span><em class="autodoc-param">inputs</em><span class="autodoc-punctuation">, </span><em class="autodoc-param">output</em><span class="autodoc-punctuation">, </span><em class="autodoc-param">size_dict</em><span class="autodoc-punctuation">)</span></div>
+<div class="autodoc-docstring"></div>
+</div>
+</div>
+<h3 id="opt_einsumpath_randomrandomgreedy"><code>opt_einsum.path_random.RandomGreedy</code></h3>
+<div class="autodoc">
+<div class="autodoc-signature"><em>class </em><code>opt_einsum.path_random.<strong>RandomGreedy</strong></code><span class="autodoc-punctuation">(</span><em class="autodoc-param">cost_fn='memory-removed-jitter'</em><span class="autodoc-punctuation">, </span><em class="autodoc-param">temperature=1.0</em><span class="autodoc-punctuation">, </span><em class="autodoc-param">rel_temperature=True</em><span class="autodoc-punctuation">, </span><em class="autodoc-param">nbranch=8</em><span class="autodoc-punctuation">, </span><em class="autodoc-param">**kwargs</em><span class="autodoc-punctuation">)</span></div>
+<div class="autodoc-docstring"><p><strong>Parameters:</strong></p>
+<ul>
+<li><strong>cost_fn</strong> - <em>(callable, optional)</em> A function that returns a heuristic 'cost' of a potential contraction
+    with which to sort candidates. Should have signature
+    <code>cost_fn(size12, size1, size2, k12, k1, k2)</code>.</li>
+<li><strong>temperature</strong> - <em>(float, optional)</em> When choosing a possible contraction, its relative probability will be
+    proportional to <code>exp(-cost / temperature)</code>. Thus the larger
+    <code>temperature</code> is, the further random paths will stray from the normal
+    'greedy' path. Conversely, if set to zero, only paths with exactly the
+    same cost as the best at each step will be explored.</li>
+<li><strong>rel_temperature</strong> - <em>(bool, optional)</em> Whether to normalize the <code>temperature</code> at each step to the scale of
+    the best cost. This is generally beneficial as the magnitude of costs
+    can vary significantly throughout a contraction. If False, the
+    algorithm will end up branching when the absolute cost is low, but
+    stick to the 'greedy' path when the cost is high - this can also be
+    beneficial.</li>
+<li><strong>nbranch</strong> - <em>(int, optional)</em> How many potential paths to calculate probability for and choose from at each step.</li>
+<li><strong>kwargs</strong> - Supplied to RandomOptimizer.</li>
+</ul></div>
+<div class="autodoc-members">
+<div class="autodoc-signature"><code><strong>choose_fn</strong></code></div>
+<div class="autodoc-docstring"><p>The function that chooses which contraction to take - make this a
+property so that <code>temperature</code> and <code>nbranch</code> etc. can be updated
+between runs.</p></div>
+<div class="autodoc-signature"><code><strong>parallel</strong></code></div>
+<div class="autodoc-docstring"></div>
+<div class="autodoc-signature"><code><strong>path</strong></code></div>
+<div class="autodoc-docstring"><p>The best path found so far.</p></div>
+<div class="autodoc-signature"><code><strong>setup</strong></code><span class="autodoc-punctuation">(</span><em class="autodoc-param">self</em><span class="autodoc-punctuation">, </span><em class="autodoc-param">inputs</em><span class="autodoc-punctuation">, </span><em class="autodoc-param">output</em><span class="autodoc-punctuation">, </span><em class="autodoc-param">size_dict</em><span class="autodoc-punctuation">)</span></div>
+<div class="autodoc-docstring"></div>
+</div>
+</div>
+<h3 id="opt_einsumpathsdynamicprogramming"><code>opt_einsum.paths.DynamicProgramming</code></h3>
+<div class="autodoc">
+<div class="autodoc-signature"><em>class </em><code>opt_einsum.paths.<strong>DynamicProgramming</strong></code><span class="autodoc-punctuation">(</span><em class="autodoc-param">minimize='flops'</em><span class="autodoc-punctuation">, </span><em class="autodoc-param">cost_cap=True</em><span class="autodoc-punctuation">, </span><em class="autodoc-param">search_outer=False</em><span class="autodoc-punctuation">)</span></div>
+<div class="autodoc-docstring"><p>Finds the optimal path of pairwise contractions without intermediate outer
+products based a dynamic programming approach presented in
+Phys. Rev. E 90, 033315 (2014) (the corresponding preprint is publicly
+available at https://arxiv.org/abs/1304.6112). This method is especially
+well-suited in the area of tensor network states, where it usually
+outperforms all the other optimization strategies.</p>
+<p>This algorithm shows exponential scaling with the number of inputs
+in the worst case scenario (see example below). If the graph to be
+contracted consists of disconnected subgraphs, the algorithm scales
+linearly in the number of disconnected subgraphs and only exponentially
+with the number of inputs per subgraph.</p>
+<p><strong>Parameters:</strong></p>
+<ul>
+<li>
+<p><strong>minimize</strong> - <em>({'flops', 'size', 'write', 'combo', 'limit', callable}, optional)</em> What to minimize:</p>
+<ul>
+<li>'flops' - minimize the number of flops</li>
+<li>'size' - minimize the size of the largest intermediate</li>
+<li>'write' - minimize the size of all intermediate tensors</li>
+<li>'combo' - minimize <code>flops + alpha * write</code> summed over intermediates, a default ratio of alpha=64
+  is used, or it can be customized with <code>f'combo-{alpha}'</code></li>
+<li>'limit' - minimize <code>max(flops, alpha * write)</code> summed over intermediates, a default ratio of alpha=64
+  is used, or it can be customized with <code>f'limit-{alpha}'</code></li>
+<li>callable - a custom local cost function</li>
+</ul>
+</li>
+<li>
+<p><strong>cost_cap</strong> - <em>({True, False, int}, optional)</em> How to implement cost-capping:</p>
+<ul>
+<li>True - iteratively increase the cost-cap</li>
+<li>False - implement no cost-cap at all</li>
+<li>int - use explicit cost cap</li>
+</ul>
+</li>
+<li>
+<p><strong>search_outer</strong> - <em>(bool, optional)</em> In rare circumstances the optimal contraction may involve an outer
+    product, this option allows searching such contractions but may well
+    slow down the path finding considerably on all but very small graphs.</p>
+</li>
+</ul></div>
+<div class="autodoc-members"></div>
+</div>
+                
+              
+              
+                
+
+
+              
+            </article>
+          </div>
+        </div>
+      </main>
+      
+        
+<footer class="md-footer">
+  
+    <div class="md-footer-nav">
+      <nav class="md-footer-nav__inner md-grid" aria-label="Footer">
+        
+          <a href="../examples/large_expr_with_greedy/" title="Large Expressions with Greedy" class="md-footer-nav__link md-footer-nav__link--prev" rel="prev">
+            <div class="md-footer-nav__button md-icon">
+              <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M20 11v2H8l5.5 5.5-1.42 1.42L4.16 12l7.92-7.92L13.5 5.5 8 11h12z"/></svg>
+            </div>
+            <div class="md-footer-nav__title">
+              <div class="md-ellipsis">
+                <span class="md-footer-nav__direction">
+                  Previous
+                </span>
+                Large Expressions with Greedy
+              </div>
+            </div>
+          </a>
+        
+        
+          <a href="../changelog/" title="Changelog" class="md-footer-nav__link md-footer-nav__link--next" rel="next">
+            <div class="md-footer-nav__title">
+              <div class="md-ellipsis">
+                <span class="md-footer-nav__direction">
+                  Next
+                </span>
+                Changelog
+              </div>
+            </div>
+            <div class="md-footer-nav__button md-icon">
+              <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M4 11v2h12l-5.5 5.5 1.42 1.42L19.84 12l-7.92-7.92L10.5 5.5 16 11H4z"/></svg>
+            </div>
+          </a>
+        
+      </nav>
+    </div>
+  
+  <div class="md-footer-meta md-typeset">
+    <div class="md-footer-meta__inner md-grid">
+      <div class="md-footer-copyright">
+        
+        Made with
+        <a href="https://squidfunk.github.io/mkdocs-material/" target="_blank" rel="noopener">
+          Material for MkDocs
+        </a>
+      </div>
+      
+    </div>
+  </div>
+</footer>
+      
+    </div>
+    
+      <script src="../assets/javascripts/vendor.2d1db4bd.min.js"></script>
+      <script src="../assets/javascripts/bundle.6627ddf3.min.js"></script><script id="__lang" type="application/json">{"clipboard.copied": "Copied to clipboard", "clipboard.copy": "Copy to clipboard", "search.config.lang": "en", "search.config.pipeline": "trimmer, stopWordFilter", "search.config.separator": "[\\s\\-]+", "search.result.none": "No matching documents", "search.result.one": "1 matching document", "search.result.other": "# matching documents", "search.result.placeholder": "Type to start searching"}</script>
+      
+      <script>
+        app = initialize({
+          base: "..",
+          features: [],
+          search: Object.assign({
+            worker: "../assets/javascripts/worker/search.5eca75d3.min.js"
+          }, typeof search !== "undefined" && search)
+        })
+      </script>
+      
+        <script src="../javascripts/config.js"></script>
+      
+        <script src="https://polyfill.io/v3/polyfill.min.js?features=es6"></script>
+      
+        <script src="https://cdn.jsdelivr.net/npm/mathjax@3/es5/tex-mml-chtml.js"></script>
+      
+    
+  </body>
+</html>
